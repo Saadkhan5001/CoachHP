@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #8cff00;
+  --dark-bg: #0f0f0f;
+  --dark-card: #1c1c1c;
+  --dark-card-2: #141414;
+  --light-bg: #f9f9f9;
+  --light-card: #ffffff;
+  --muted-dark: #9b9b9b;
+  --muted-light: #565656;
+  --border-dark: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(15, 15, 15, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--dark-bg);
+  color: #f2f2f2;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Typography helpers */
+.h-hero {
+  font-size: clamp(2.75rem, 6.2vw, 5.1rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+.h-section {
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+.h-card-lg {
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+.text-accent {
+  color: var(--accent);
+}
+
+/* Rounded top for rising/overlapping panels */
+.rounded-panel-top {
+  border-top-left-radius: clamp(26px, 4.6vw, 70px);
+  border-top-right-radius: clamp(26px, 4.6vw, 70px);
+}
+
+/* Pinned-reveal panels: the incoming panel is a foreground sheet that slides
+   up over the pinned outgoing section. A soft top shadow sells the lift. */
+.panel-reveal {
+  box-shadow: 0 -22px 60px -30px rgba(0, 0, 0, 0.6);
+  will-change: transform;
+}
+
+/* Reveal animation base (JS toggles .is-in) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Hide scrollbar for carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0f0f0f;
+}
