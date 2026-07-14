@@ -23,7 +23,8 @@ export function Header() {
 
     const update = () => {
       ticking = false;
-      const y = window.scrollY;
+      const isMobile = window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
+      const y = isMobile ? 0 : window.scrollY;
       const p = Math.min(Math.max(y / SHRINK_DISTANCE, 0), 1);
       progressRef.current = p;
       const bar = barRef.current;
@@ -67,10 +68,10 @@ export function Header() {
     : "bg-[rgba(80,94,90,0.58)] border-white/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.08)]";
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex justify-center px-6 pt-6">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex justify-center px-4 pt-4 sm:px-6 sm:pt-6">
       <div
         ref={barRef}
-        className={`pointer-events-auto flex h-14 w-full items-center justify-between rounded-full border py-2 pl-6 pr-2 backdrop-blur-xl transition-[background-color,border-color] duration-500 ${barBg}`}
+        className={`pointer-events-auto flex h-14 w-full items-center justify-between rounded-full border py-2 pl-5 pr-2 sm:pl-6 backdrop-blur-xl transition-[background-color,border-color] duration-500 ${barBg}`}
         style={{ maxWidth: MAX_W_OPEN }}
       >
         <a href="#top" className="flex items-center text-white">
@@ -93,7 +94,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <a
             href="#contact"
-            className="inline-flex h-10 w-[118px] items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] px-0 text-[16px] font-medium text-accent transition-transform duration-300 hover:scale-[1.03]"
+            className="hidden h-10 w-[118px] sm:inline-flex items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] px-0 text-[16px] font-medium text-accent transition-transform duration-300 hover:scale-[1.03]"
           >
             Get Started
           </a>

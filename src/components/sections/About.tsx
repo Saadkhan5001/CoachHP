@@ -13,13 +13,13 @@ export function About() {
       id="about"
       data-nav-theme="light"
       data-rise
-      className="panel-reveal rounded-panel-top relative z-[2] bg-light-bg pb-24 pt-16 text-dark-bg sm:pt-20"
+      className="panel-reveal rounded-panel-top relative z-[2] bg-light-bg pb-20 pt-14 text-dark-bg sm:pb-24 sm:pt-20"
     >
       <SectionHeading label="About Me" theme="light" subtitle="This level of progress is driven by custom training, strategic nutrition, and accountability every step of the way.">
         Meet Your Coach
       </SectionHeading>
 
-      <div className="mx-auto mt-14 grid max-w-content gap-3 px-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)_minmax(0,1.5fr)] lg:px-6">
+      <div className="mx-auto mt-10 grid max-w-content gap-3 px-5 sm:mt-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)_minmax(0,1.5fr)] lg:px-6">
         {/* Left column */}
         <Reveal className="flex flex-col gap-3 lg:h-[620px]">
           {ABOUT_CREDENTIALS.map((c) => {
@@ -66,7 +66,7 @@ export function About() {
         {/* Center portrait */}
         <Reveal delay={0.08} className="lg:h-[620px]">
           <div
-            className="h-[420px] w-full overflow-hidden rounded-3xl bg-cover bg-top sm:h-[520px] lg:h-full"
+            className="h-[360px] w-full sm:h-[520px] overflow-hidden rounded-3xl bg-cover bg-top lg:h-full"
             style={{ backgroundImage: "url(/images/curtis/coach.jpg)" }}
             role="img"
             aria-label="Curtis Johnson, personal coach"

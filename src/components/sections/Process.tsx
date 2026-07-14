@@ -14,7 +14,7 @@ function StepCard({
   body: string;
 }) {
   return (
-    <article className="flex min-h-[250px] flex-col justify-between rounded-[22px] bg-dark-card2 p-6 md:min-h-[270px]">
+    <article className="flex min-h-[210px] flex-col justify-between rounded-[22px] bg-dark-card2 p-6 md:min-h-[270px]">
       <span className="text-[2.6rem] font-semibold leading-none text-white/15">
         {number}
       </span>
@@ -36,7 +36,7 @@ export function Process() {
       <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {/* Stat / image card */}
         <Reveal>
-          <article className="relative flex min-h-[250px] flex-col justify-center gap-3 overflow-hidden rounded-[22px] p-5 md:min-h-[270px]">
+          <article className="relative flex min-h-[220px] flex-col justify-center gap-3 overflow-hidden rounded-[22px] p-5 md:min-h-[270px]">
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: "url(/images/curtis/proc-equip.jpg)" }}
@@ -67,7 +67,7 @@ export function Process() {
 
         {/* Promo card spans two columns */}
         <Reveal delay={0.1} className="sm:col-span-2 lg:col-span-2">
-          <article className="relative flex min-h-[250px] flex-col justify-end overflow-hidden rounded-[22px] p-7 md:min-h-[270px]">
+          <article className="relative flex min-h-[240px] flex-col justify-end overflow-hidden rounded-[22px] p-7 md:min-h-[270px]">
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: "url(/images/curtis/proc-promo.jpg)" }}

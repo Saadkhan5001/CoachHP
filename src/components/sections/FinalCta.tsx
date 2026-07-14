@@ -9,7 +9,7 @@ export function FinalCta() {
       id="contact"
       data-nav-theme="dark"
       data-rise
-      className="panel-reveal rounded-panel-top relative z-[5] flex min-h-screen flex-col overflow-hidden bg-dark-bg"
+      className="panel-reveal rounded-panel-top relative z-[5] flex min-h-[100svh] flex-col overflow-hidden bg-dark-bg"
     >
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -27,7 +27,7 @@ export function FinalCta() {
       />
 
       {/* Centered CTA */}
-      <div className="relative flex flex-1 flex-col items-center justify-center px-6 text-center">
+      <div className="relative flex flex-1 flex-col items-center justify-center px-5 py-20 text-center sm:px-6 sm:py-0">
         <Reveal>
           <h2 className="h-section max-w-2xl text-white">
             Ready To Achieve <span className="text-accent">Your Goals?</span>
@@ -50,11 +50,11 @@ export function FinalCta() {
 
       {/* Footer overlay */}
       <footer className="relative border-t border-white/10 px-6 py-6 sm:px-10">
-        <div className="mx-auto flex max-w-hero flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+        <div className="mx-auto flex max-w-hero flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-5 sm:gap-y-3">
             <SocialIcons variant="footer" />
             <span className="hidden h-4 w-px bg-white/15 sm:block" />
-            <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
               {FOOTER_LINKS.map((l) => (
                 <a
                   key={l.href}

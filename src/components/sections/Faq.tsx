@@ -14,13 +14,13 @@ export function Faq() {
       id="faq"
       data-nav-theme="light"
       data-rise
-      className="panel-reveal rounded-panel-top relative z-[4] bg-light-bg pb-28 pt-16 text-dark-bg sm:pt-20"
+      className="panel-reveal rounded-panel-top relative z-[4] bg-light-bg pb-20 pt-14 text-dark-bg sm:pb-28 sm:pt-20"
     >
       <SectionHeading label="FAQ" theme="light" subtitle="Find answers to the most common questions about training with me and how my programs work.">
         Frequently Asked Questions
       </SectionHeading>
 
-      <div className="mx-auto mt-12 max-w-[920px] space-y-3 px-5">
+      <div className="mx-auto mt-10 max-w-[920px] space-y-3 px-5 sm:mt-12">
         {FAQS.map((item, i) => {
           const isOpen = open === i;
           return (
@@ -30,7 +30,7 @@ export function Faq() {
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left sm:px-8"
+                  className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-8"
                 >
                   <span className="text-[1.02rem] font-medium text-black sm:text-[1.1rem]">
                     {item.q}

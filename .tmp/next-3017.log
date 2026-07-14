@@ -1,0 +1,16 @@
+
+> curtis-coach@1.0.0 dev
+> next dev -p 3017
+
+   ▲ Next.js 15.5.20
+   - Local:        http://localhost:3017
+   - Network:      http://10.212.134.201:3017
+
+ ✓ Starting...
+[Error: EPERM: operation not permitted, open 'D:\Apolloe\CoachHP\.next\cache\next-devtools-config.json'] {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'open',
+  path: 'D:\\Apolloe\\CoachHP\\.next\\cache\\next-devtools-config.json'
+}
+[?25h

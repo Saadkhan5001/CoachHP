@@ -10,10 +10,14 @@ export function Motion() {
     const reduce =
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       new URLSearchParams(window.location.search).has("nomotion");
+    const isMobile =
+      window.matchMedia("(max-width: 768px)").matches ||
+      window.matchMedia("(pointer: coarse)").matches;
 
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
-    if (reduce) {
+    if (reduce || isMobile) {
       return () => {
         ScrollTrigger.getAll().forEach((t) => t.kill());
       };
@@ -30,7 +34,6 @@ export function Motion() {
     gsap.ticker.add(ticker);
     gsap.ticker.lagSmoothing(0);
 
-    // Anchor smooth-scroll through Lenis
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement).closest(
         'a[href^="#"]'
@@ -47,15 +50,6 @@ export function Motion() {
     document.addEventListener("click", onClick);
 
     const ctx = gsap.context(() => {
-      // Genuine pinned panel reveal: the outgoing section is pinned (held still)
-      // while the incoming rounded panel slides up from below and covers it.
-      // Scrubbed to scroll progress so it is fully reversible.
-      // Pinned-panel reveal via counter-translation (no layout pinning, so it
-      // never reflows or fights the smooth-scroller). During the transition the
-      // outgoing section is translated downward at exactly the scroll rate, so
-      // it appears frozen in place, while the incoming rounded panel — the next
-      // element in normal flow with a higher z-index — scrolls up and covers it.
-      // Scrubbed to scroll progress, so it reverses perfectly.
       const panels = gsap.utils.toArray<HTMLElement>("[data-rise]");
       panels.forEach((incoming) => {
         const outgoing = incoming.previousElementSibling as HTMLElement | null;
@@ -79,7 +73,6 @@ export function Motion() {
       });
     });
 
-    // Recalculate once fonts + images have loaded so pin distances are exact.
     const onLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", onLoad);
     if (document.fonts?.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());

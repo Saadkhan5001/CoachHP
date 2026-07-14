@@ -47,16 +47,16 @@ export function Reviews() {
       </SectionHeading>
 
       <div className="relative mx-auto mt-14 max-w-content px-5 lg:px-6">
-        <div className="overflow-hidden" ref={emblaRef}>
+        <div className="touch-pan-y overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {REVIEWS.map((r, i) => (
               <div
                 key={r.name + i}
                 className="min-w-0 flex-[0_0_100%] pr-3 sm:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
               >
-                <article className="flex h-full min-h-[380px] flex-col rounded-[26px] bg-dark-card2 p-8">
+                <article className="flex h-full min-h-[320px] flex-col rounded-[26px] bg-dark-card2 p-6 sm:min-h-[380px] sm:p-8">
                   <Quote className="h-9 w-9 rotate-180 fill-accent text-accent" />
-                  <p className="mt-6 flex-1 text-[1.1rem] leading-relaxed text-white/85">
+                  <p className="mt-6 flex-1 text-[1rem] leading-relaxed sm:text-[1.1rem] text-white/85">
                     {r.quote}
                   </p>
                   <div className="mt-6 flex items-center gap-3">
@@ -79,7 +79,7 @@ export function Reviews() {
           type="button"
           onClick={() => emblaApi?.scrollPrev()}
           aria-label="Previous review"
-          className="absolute left-1 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 xl:-left-5"
+          className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 xl:-left-5"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
@@ -87,7 +87,7 @@ export function Reviews() {
           type="button"
           onClick={() => emblaApi?.scrollNext()}
           aria-label="Next review"
-          className="absolute right-1 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 xl:-right-5"
+          className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 xl:-right-5"
         >
           <ChevronRight className="h-5 w-5" />
         </button>

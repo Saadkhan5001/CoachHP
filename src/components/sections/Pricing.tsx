@@ -10,7 +10,7 @@ export function Pricing() {
     <section
       id="pricing"
       data-nav-theme="dark"
-      className="relative z-[3] overflow-hidden bg-dark-bg py-24 sm:py-32"
+      className="relative z-[3] overflow-hidden bg-dark-bg py-20 sm:py-32"
     >
       <div
         className="absolute inset-0 bg-cover bg-left"
@@ -75,7 +75,7 @@ export function Pricing() {
                     </div>
                     <a
                       href="#contact"
-                      className="mt-5 flex w-fit items-center gap-2 rounded-full bg-accent px-5 py-2 text-[0.92rem] font-medium text-black transition-transform hover:scale-[1.03]"
+                      className="mt-5 flex w-full justify-center sm:w-fit items-center gap-2 rounded-full bg-accent px-5 py-2 text-[0.92rem] font-medium text-black transition-transform hover:scale-[1.03]"
                     >
                       Get Started
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-white">
