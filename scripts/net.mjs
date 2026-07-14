@@ -1,0 +1,10 @@
+import { chromium } from "playwright";
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const failed = [];
+p.on("response", r => { if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`); });
+await p.goto("http://localhost:3500/?nomotion", { waitUntil: "networkidle" });
+await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+await p.waitForTimeout(1000);
+console.log("FAILED REQUESTS:", JSON.stringify(failed, null, 1));
+await b.close();

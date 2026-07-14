@@ -3,62 +3,41 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PillLabel } from "../PillLabel";
-import { TRANSFORMATIONS, type Transformation } from "@/lib/data";
+import { STORY_FOCUS, type StoryFocus } from "@/lib/data";
 
-const STORIES: Transformation[] = [
-  TRANSFORMATIONS[0],
-  {
-    quote:
-      "Curtis took my lifting to a new level. I wasn't sure how much progress I had left, but with structured programming and feedback, I broke through plateaus and moved into powerlifting. My strength and confidence grew, and my training finally had direction.",
-    name: "Tom",
-    meta: "In-person Training | 18 Months",
-    before: "/images/curtis/before-mike.jpg",
-    after: "/images/curtis/after-david.jpg",
-  },
-  {
-    quote:
-      "As a mum of two, I struggled with my weight and finding time for myself. Coach Curtis helped me lose weight, build strength, and regain my energy without sacrificing family time. I now feel strong, confident, and proud of what my body can do.",
-    name: "Claudia",
-    meta: "In-person Training | 5 Months",
-    before: "/images/curtis/before-mike.jpg",
-    after: "/images/curtis/before-david.jpg",
-  },
-];
-
-function StoryImage({ src, label, tone }: { src: string; label: string; tone: "light" | "accent" }) {
+function StoryImage({ src, label, tone }: { src: string; label: string; tone: "work" | "stage" }) {
   return (
-    <div className="relative h-[260px] min-w-0 overflow-visible md:h-[360px] xl:h-full">
+    <div className="relative h-[240px] min-w-0 overflow-hidden sm:h-[360px] xl:h-full">
       <span
-        className={`absolute -top-1 left-0 z-10 inline-flex h-[34px] items-center rounded-full px-5 text-[13px] font-medium text-black ${
-          tone === "accent" ? "bg-accent" : "bg-white"
+        className={`stamp absolute left-0 top-0 z-10 inline-flex h-[30px] items-center px-4 text-black ${
+          tone === "stage" ? "bg-accent" : "bg-white"
         }`}
       >
         {label}
       </span>
       <div
-        className="h-full w-full rounded-2xl bg-cover bg-center"
+        className="h-full w-full bg-cover bg-center grayscale-[0.15]"
         style={{ backgroundImage: `url(${src})` }}
+        role="img"
+        aria-label={`${label} — illustrative placeholder`}
       />
     </div>
   );
 }
 
-function StoryCard({ item }: { item: Transformation }) {
+function StoryCard({ item }: { item: StoryFocus }) {
   return (
-    <article className="grid h-auto xl:h-full grid-cols-1 gap-3 rounded-[28px] bg-[#191919] p-[15px] md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:grid-cols-[285px_285px_minmax(0,1fr)]">
-      <StoryImage src={item.before} label="Before" tone="light" />
-      <StoryImage src={item.after} label="After" tone="accent" />
-      <div className="flex min-w-0 flex-col px-3 pb-3 pt-8 md:col-span-2 xl:col-span-1 xl:px-[25px] xl:pb-6 xl:pl-[30px] xl:pr-[25px]">
-        <Quote className="h-9 w-9 rotate-180 fill-accent text-accent" strokeWidth={0} />
-        <p className="mt-[22px] text-[18px] font-normal leading-[1.38] tracking-[-0.015em] text-white/80">
-          {item.quote}
-        </p>
-        <div className="mt-auto pt-8">
-          <p className="text-[17px] font-semibold leading-tight text-[#f3f3f3]">{item.name}</p>
-          <p className="mt-[5px] text-[12px] leading-tight text-white/50">{item.meta}</p>
-        </div>
+    <article className="grid h-auto grid-cols-1 gap-3 border border-white/10 bg-dark-card2 p-[15px] md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:h-full xl:grid-cols-[275px_275px_minmax(0,1fr)]">
+      <StoryImage src={item.workImage} label="The Work" tone="work" />
+      <StoryImage src={item.stageImage} label="The Stage" tone="stage" />
+      <div className="flex min-w-0 flex-col justify-center px-3 pb-4 pt-6 md:col-span-2 xl:col-span-1 xl:px-6">
+        <span className="stamp text-accent">{item.tag}</span>
+        <h3 className="mt-3 text-[1.5rem] font-extrabold uppercase leading-[1.02] tracking-[-0.02em] text-white">
+          {item.title}
+        </h3>
+        <p className="mt-4 text-[1rem] leading-relaxed text-white/70">{item.body}</p>
       </div>
     </article>
   );
@@ -87,7 +66,7 @@ export function Transformations() {
 
   return (
     <section
-      id="stories"
+      id="results"
       className="scroll-mt-[110px] overflow-hidden pt-24 pb-20 sm:pt-32"
       onKeyDown={(e) => {
         if (e.key === "ArrowLeft") scrollPrev();
@@ -95,33 +74,33 @@ export function Transformations() {
       }}
       tabIndex={-1}
       aria-roledescription="carousel"
-      aria-label="Client transformations"
+      aria-label="Coaching focuses"
     >
-      <div className="mx-auto flex w-[min(calc(100%_-_40px),760px)] flex-col items-center text-center">
-        <PillLabel theme="dark" className="min-h-[30px] px-4 py-0 text-[13px] leading-none">
-          Client Stories
-        </PillLabel>
-        <h2 className="mt-2 text-[clamp(40px,3vw,50px)] font-medium leading-[1.02] tracking-[-0.04em] text-white">
-          <span className="text-accent">Results</span> Speak for Themselves
+      <div className="mx-auto flex w-[min(calc(100%-40px),760px)] flex-col items-center text-center">
+        <PillLabel theme="dark">Results</PillLabel>
+        <h2 className="h-section mt-4 text-white">
+          From the Work to <span className="text-accent">the Stage</span>
         </h2>
-        <p className="mt-2.5 max-w-[600px] text-[15px] leading-[1.35] text-white/60">
-          No filters. Just discipline, consistency, and serious results. This is what happens when commitment meets a proven system.
+        <p className="mt-3 max-w-[600px] text-[15px] leading-relaxed text-white/60">
+          No filters, no fabricated numbers. Just the process that turns disciplined
+          work into real performance — the same one Coach P uses to prep competitors
+          and step on stage himself.
         </p>
       </div>
 
-      <div className="relative mt-7 touch-pan-y [--story-slide:994px]">
+      <div className="relative mt-8 touch-pan-y [--story-slide:980px]">
         <div className="overflow-hidden xl:overflow-visible" ref={emblaRef}>
           <div className="flex items-center">
-            {STORIES.map((item, i) => (
+            {STORY_FOCUS.map((item, i) => (
               <div
-                key={item.name + i}
-                className="min-w-0 flex-[0_0_min(calc(100vw_-_40px),var(--story-slide))] px-2"
+                key={item.tag + i}
+                className="min-w-0 flex-[0_0_min(calc(100vw-40px),var(--story-slide))] px-2"
                 aria-hidden={selected !== i}
               >
-                <div className="relative h-auto overflow-hidden rounded-[28px] xl:h-[472px]">
+                <div className="relative overflow-hidden xl:h-[456px]">
                   <StoryCard item={item} />
                   <div
-                    className={`pointer-events-none absolute inset-0 rounded-[28px] bg-black transition-opacity duration-500 ${
+                    className={`pointer-events-none absolute inset-0 bg-black transition-opacity duration-500 ${
                       selected === i ? "opacity-0" : "opacity-[0.58]"
                     }`}
                   />
@@ -134,34 +113,38 @@ export function Transformations() {
         <button
           type="button"
           onClick={scrollPrev}
-          aria-label="Previous story"
-          className="absolute left-4 top-1/2 xl:left-[calc(50%-(min(calc(100vw-44px),var(--story-slide))/2)-28px)] z-20 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20"
+          aria-label="Previous"
+          className="absolute left-4 top-1/2 z-20 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-white/15 bg-black/40 text-white backdrop-blur-md transition-colors hover:border-accent hover:text-accent xl:left-[calc(50%-(min(calc(100vw-44px),var(--story-slide))/2)-28px)]"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
         <button
           type="button"
           onClick={scrollNext}
-          aria-label="Next story"
-          className="absolute right-4 top-1/2 xl:right-[calc(50%-(min(calc(100vw-44px),var(--story-slide))/2)-28px)] z-20 flex h-12 w-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20"
+          aria-label="Next"
+          className="absolute right-4 top-1/2 z-20 flex h-12 w-12 translate-x-1/2 -translate-y-1/2 items-center justify-center border border-white/15 bg-black/40 text-white backdrop-blur-md transition-colors hover:border-accent hover:text-accent xl:right-[calc(50%-(min(calc(100vw-44px),var(--story-slide))/2)-28px)]"
         >
           <ChevronRight className="h-6 w-6" />
         </button>
       </div>
 
-      <div className="mt-[30px] flex justify-center gap-1.5">
-        {STORIES.map((_, i) => (
+      <div className="mt-7 flex justify-center gap-1.5">
+        {STORY_FOCUS.map((_, i) => (
           <button
             key={i}
             type="button"
-            aria-label={`Go to story ${i + 1}`}
+            aria-label={`Go to slide ${i + 1}`}
             onClick={() => emblaApi?.scrollTo(i)}
-            className={`h-1.5 w-1.5 rounded-full transition-colors ${
-              selected === i ? "bg-white/95" : "bg-white/25"
+            className={`h-1.5 transition-all ${
+              selected === i ? "w-6 bg-accent" : "w-1.5 bg-white/25"
             }`}
           />
         ))}
       </div>
+
+      <p className="mx-auto mt-6 max-w-[600px] px-5 text-center text-[11px] uppercase tracking-[0.14em] text-white/30">
+        Imagery illustrative — real client results shown only with consent
+      </p>
     </section>
   );
 }

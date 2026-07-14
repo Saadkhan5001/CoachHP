@@ -5,15 +5,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        accent: "#8cff00",
-        "accent-dark": "#7ae000",
+        accent: "#ec5b22",
+        "accent-deep": "#c8460f",
+        ink: "#0b0b0c",
+        bone: "#f4f2ee",
+        steel: "#2a2d33",
         dark: {
-          bg: "#0f0f0f",
-          card: "#1c1c1c",
-          card2: "#141414",
+          bg: "#0b0b0c",
+          card: "#1c1e22",
+          card2: "#141517",
         },
         light: {
-          bg: "#f9f9f9",
+          bg: "#f4f2ee",
           card: "#ffffff",
         },
       },
@@ -21,13 +24,13 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       borderRadius: {
-        panel: "72px",
-        "panel-sm": "36px",
+        panel: "46px",
+        "panel-sm": "28px",
       },
       maxWidth: {
-        content: "1080px",
+        content: "1120px",
         hero: "1440px",
-        nav: "860px",
+        nav: "880px",
       },
     },
   },

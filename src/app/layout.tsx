@@ -10,9 +10,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Curtis — Personal Trainer & Coach",
+  title: "Coach P Factory — Strength, Conditioning & Performance Coaching",
   description:
-    "Expert coaching built on proven methods to help you move better, build real strength, and create lasting, measurable progress.",
+    "Coach P Factory — performance coaching built on 20+ years of experience, technique and discipline. Strength, conditioning and competition prep for athletes and individuals ready to put in the work.",
+  openGraph: {
+    title: "Coach P Factory — Built in the Factory",
+    description:
+      "Performance coaching where disciplined, technical work is turned into real results. Strength, conditioning, agility and stage prep with Coach P.",
+    siteName: "Coach P Factory",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

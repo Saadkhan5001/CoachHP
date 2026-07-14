@@ -16,7 +16,7 @@ export function Faq() {
       data-rise
       className="panel-reveal rounded-panel-top relative z-[4] bg-light-bg pb-20 pt-14 text-dark-bg sm:pb-28 sm:pt-20"
     >
-      <SectionHeading label="FAQ" theme="light" subtitle="Find answers to the most common questions about training with me and how my programs work.">
+      <SectionHeading label="FAQ" theme="light" subtitle="Straight answers on how coaching with Coach P works — in person, online, and inside the Factory Academy.">
         Frequently Asked Questions
       </SectionHeading>
 
@@ -25,7 +25,7 @@ export function Faq() {
           const isOpen = open === i;
           return (
             <Reveal key={item.q} delay={Math.min(i * 0.04, 0.2)}>
-              <div className="overflow-hidden rounded-[22px] bg-white">
+              <div className="overflow-hidden border border-black/10 bg-white">
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}

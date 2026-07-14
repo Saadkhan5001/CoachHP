@@ -3,14 +3,14 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionHeading } from "../SectionHeading";
-import { REVIEWS } from "@/lib/data";
+import { STANDARDS } from "@/lib/data";
 
 export function Reviews() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start" },
-    [Autoplay({ delay: 4500, stopOnInteraction: false, stopOnMouseEnter: true })]
+    [Autoplay({ delay: 4600, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
   const [snaps, setSnaps] = useState<number[]>([]);
   const [selected, setSelected] = useState(0);
@@ -32,7 +32,7 @@ export function Reviews() {
 
   return (
     <section
-      id="reviews"
+      id="standards"
       className="pt-24 sm:pt-32"
       onKeyDown={(e) => {
         if (e.key === "ArrowLeft") emblaApi?.scrollPrev();
@@ -40,35 +40,31 @@ export function Reviews() {
       }}
       tabIndex={-1}
       aria-roledescription="carousel"
-      aria-label="Client reviews"
+      aria-label="The Factory Standards"
     >
-      <SectionHeading label="Reviews" subtitle="This level of progress is driven by custom training, strategic nutrition, and accountability every step of the way.">
-        Hear From Clients Who <span className="text-accent">Took the First Step</span>
+      <SectionHeading
+        label="Standards"
+        subtitle="Coaching here runs on principles, not slogans. These are the standards every athlete in the Factory is held to."
+      >
+        The Factory <span className="text-accent">Standards</span>
       </SectionHeading>
 
       <div className="relative mx-auto mt-14 max-w-content px-5 lg:px-6">
-        <div className="touch-pan-y overflow-hidden" ref={emblaRef}>
+        <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {REVIEWS.map((r, i) => (
+            {STANDARDS.map((s) => (
               <div
-                key={r.name + i}
+                key={s.number}
                 className="min-w-0 flex-[0_0_100%] pr-3 sm:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
               >
-                <article className="flex h-full min-h-[320px] flex-col rounded-[26px] bg-dark-card2 p-6 sm:min-h-[380px] sm:p-8">
-                  <Quote className="h-9 w-9 rotate-180 fill-accent text-accent" />
-                  <p className="mt-6 flex-1 text-[1rem] leading-relaxed sm:text-[1.1rem] text-white/85">
-                    {r.quote}
-                  </p>
-                  <div className="mt-6 flex items-center gap-3">
-                    <span
-                      className="h-11 w-11 shrink-0 rounded-full bg-cover bg-center"
-                      style={{ backgroundImage: `url(${r.avatar})` }}
-                    />
-                    <div>
-                      <p className="text-[1rem] font-semibold text-white">{r.name}</p>
-                      <p className="text-[0.82rem] text-white/50">{r.role}</p>
-                    </div>
-                  </div>
+                <article className="flex h-full min-h-[300px] flex-col border border-white/10 bg-dark-card2 p-8">
+                  <span className="text-[2.4rem] font-extrabold leading-none tracking-[-0.04em] text-accent">
+                    {s.number}
+                  </span>
+                  <h3 className="mt-5 text-[1.3rem] font-bold uppercase leading-[1.05] tracking-[-0.01em] text-white">
+                    {s.title}
+                  </h3>
+                  <p className="mt-4 flex-1 text-[1rem] leading-relaxed text-white/60">{s.body}</p>
                 </article>
               </div>
             ))}
@@ -78,16 +74,16 @@ export function Reviews() {
         <button
           type="button"
           onClick={() => emblaApi?.scrollPrev()}
-          aria-label="Previous review"
-          className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 xl:-left-5"
+          aria-label="Previous standard"
+          className="absolute left-1 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/15 bg-black/40 text-white backdrop-blur-md transition-colors hover:border-accent hover:text-accent xl:-left-5"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button
           type="button"
           onClick={() => emblaApi?.scrollNext()}
-          aria-label="Next review"
-          className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 xl:-right-5"
+          aria-label="Next standard"
+          className="absolute right-1 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/15 bg-black/40 text-white backdrop-blur-md transition-colors hover:border-accent hover:text-accent xl:-right-5"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
@@ -98,10 +94,10 @@ export function Reviews() {
           <button
             key={i}
             type="button"
-            aria-label={`Go to review group ${i + 1}`}
+            aria-label={`Go to group ${i + 1}`}
             onClick={() => emblaApi?.scrollTo(i)}
-            className={`h-2 rounded-full transition-all ${
-              selected === i ? "w-6 bg-accent" : "w-2 bg-white/25"
+            className={`h-1.5 transition-all ${
+              selected === i ? "w-6 bg-accent" : "w-1.5 bg-white/25"
             }`}
           />
         ))}

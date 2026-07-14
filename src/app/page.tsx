@@ -5,6 +5,7 @@ import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
 import { Process } from "@/components/sections/Process";
 import { Transformations } from "@/components/sections/Transformations";
+import { AcademyPreview } from "@/components/academy/AcademyPreview";
 import { Reviews } from "@/components/sections/Reviews";
 import { Pricing } from "@/components/sections/Pricing";
 import { Faq } from "@/components/sections/Faq";
@@ -24,15 +25,16 @@ export default function Home() {
           id="services-panel"
           data-nav-theme="dark"
           data-rise
-          className="panel-reveal rounded-panel-top relative z-[3] bg-dark-bg pb-4"
+          className="panel-reveal rounded-panel-top relative z-[3] bg-ink pb-4"
         >
           <Services />
           <Process />
           <Transformations />
+          <AcademyPreview />
           <Reviews />
         </section>
 
-        {/* Pricing — stays pinned while FAQ rises over it */}
+        {/* Coaching options — stays pinned while FAQ rises over it */}
         <Pricing />
 
         <Faq />

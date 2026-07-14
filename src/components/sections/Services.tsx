@@ -1,86 +1,105 @@
-import { Bone } from "lucide-react";
+import { Trophy, Zap } from "lucide-react";
 import { SectionHeading } from "../SectionHeading";
 import { Reveal } from "../Reveal";
+import { SERVICES } from "@/lib/data";
 
-function AvocadoIcon({ className = "" }: { className?: string }) {
+function ModeTag({ children }: { children: React.ReactNode }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-      <path d="M12 22c-4 0-7-3.2-7-7.5C5 9 8 3 12 2c4 1 7 7 7 12.5 0 4.3-3 7.5-7 7.5Z" />
-      <circle cx="12" cy="15" r="2.6" />
-    </svg>
+    <span className="stamp inline-flex items-center gap-1.5 text-white/50">
+      <span aria-hidden className="h-1 w-1 bg-accent" />
+      {children}
+    </span>
   );
 }
 
 export function Services() {
+  const [strength, conditioning, stage, athlete] = SERVICES;
   return (
-    <div id="services" className="mx-auto max-w-content px-5 pt-20 sm:pt-28 lg:px-6">
-      <SectionHeading label="Services" subtitle="This level of progress is driven by custom training, strategic nutrition, and accountability every step of the way.">
-        Personal Training Designed Around <span className="text-accent">Your Goals</span>
+    <div id="coaching" className="mx-auto max-w-content px-5 pt-20 sm:pt-28 lg:px-6">
+      <SectionHeading
+        label="Coaching"
+        subtitle="Real training, structured around your goals. In-person or online — every plan is built, not templated."
+      >
+        Coaching Built Around <span className="text-accent">The Work</span>
       </SectionHeading>
 
       <div className="mt-14 grid gap-3 md:grid-cols-2">
-        {/* Big left card */}
+        {/* Big left card — Strength */}
         <Reveal className="md:row-span-2">
-          <article className="relative flex min-h-[360px] flex-col justify-end overflow-hidden rounded-[26px] md:min-h-[540px]">
+          <article className="group relative flex min-h-[360px] flex-col justify-end overflow-hidden border border-white/10 md:min-h-[540px]">
             <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.2s] ease-out hover:scale-105"
-              style={{ backgroundImage: "url(/images/curtis/svc-strength.jpg)" }}
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+              style={{ backgroundImage: `url(${strength.image})` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/30 to-transparent" />
             <div className="relative p-7 sm:p-9">
-              <h3 className="h-card-lg text-white">Build Real Strength</h3>
-              <p className="mt-3 max-w-sm text-[0.95rem] leading-relaxed text-white/70">
-                Progressive strength training focused on real numbers, solid
-                technique, and long-term gains.
+              <span className="stamp text-accent">{strength.eyebrow}</span>
+              <h3 className="h-card-lg mt-3 text-white">{strength.title}</h3>
+              <p className="mt-3 max-w-sm text-[0.95rem] leading-relaxed text-white/75">
+                {strength.body}
               </p>
+              <div className="mt-4">
+                <ModeTag>{strength.mode}</ModeTag>
+              </div>
             </div>
           </article>
         </Reveal>
 
         {/* Wide conditioning card */}
         <Reveal delay={0.06}>
-          <article className="relative flex min-h-[300px] items-end overflow-hidden rounded-[26px] bg-dark-card2 sm:min-h-[220px] sm:items-center">
+          <article className="relative flex min-h-[300px] items-end overflow-hidden border border-white/10 bg-dark-card2 sm:min-h-[220px] sm:items-center">
             <div
               className="absolute inset-0 bg-cover bg-center sm:inset-y-0 sm:left-auto sm:right-0 sm:w-[52%]"
-              style={{ backgroundImage: "url(/images/curtis/svc-conditioning.jpg)" }}
+              style={{ backgroundImage: `url(${conditioning.image})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-dark-card2 via-dark-card2/80 to-transparent sm:bg-gradient-to-r" />
             <div className="relative max-w-full p-7 sm:max-w-[58%] sm:p-8">
-              <h3 className="text-[1.35rem] font-semibold text-white">Elite Conditioning</h3>
+              <span className="stamp text-accent">{conditioning.eyebrow}</span>
+              <h3 className="mt-2 text-[1.35rem] font-bold text-white">{conditioning.title}</h3>
               <p className="mt-2 text-[0.92rem] leading-relaxed text-white/65">
-                Develop real endurance that supports stronger, more consistent
-                training.
+                {conditioning.body}
               </p>
+              <div className="mt-3">
+                <ModeTag>{conditioning.mode}</ModeTag>
+              </div>
             </div>
           </article>
         </Reveal>
 
         {/* Bottom two small cards */}
         <Reveal delay={0.12}>
-          <div className="grid grid-cols-2 gap-3">
-            <article className="flex min-h-[210px] flex-col items-center justify-center rounded-[26px] bg-dark-card2 p-6 text-center">
-              <span className="mb-4 flex h-11 w-11 items-center justify-center">
-                <Bone className="h-7 w-7 text-white" strokeWidth={1.6} />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <article className="flex min-h-[220px] flex-col justify-between border border-white/10 bg-dark-card2 p-6">
+              <span className="flex h-11 w-11 items-center justify-center border border-white/10 text-accent">
+                <Trophy className="h-5 w-5" strokeWidth={1.7} />
               </span>
-              <h3 className="text-[1.15rem] font-semibold text-white">Injury Prevention</h3>
-              <p className="mt-2 text-[0.88rem] leading-relaxed text-white/60">
-                Training designed to reduce the risk of injury.
-              </p>
+              <div>
+                <span className="stamp text-white/40">{stage.eyebrow}</span>
+                <h3 className="mt-1.5 text-[1.15rem] font-bold text-white">{stage.title}</h3>
+                <p className="mt-2 text-[0.88rem] leading-relaxed text-white/60">{stage.body}</p>
+                <div className="mt-3">
+                  <ModeTag>{stage.mode}</ModeTag>
+                </div>
+              </div>
             </article>
 
-            <article className="relative flex min-h-[210px] flex-col items-center justify-center overflow-hidden rounded-[26px] p-6 text-center">
+            <article className="relative flex min-h-[220px] flex-col justify-between overflow-hidden border border-white/10 p-6">
               <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: "url(/images/curtis/svc-nutrition.jpg)" }}
+                style={{ backgroundImage: `url(${athlete.image})` }}
               />
-              <div className="absolute inset-0 bg-black/55" />
-              <span className="relative mb-4 flex h-11 w-11 items-center justify-center">
-                <AvocadoIcon className="h-7 w-7 text-white" />
+              <div className="absolute inset-0 bg-black/70" />
+              <span className="relative flex h-11 w-11 items-center justify-center border border-white/15 text-accent">
+                <Zap className="h-5 w-5" strokeWidth={1.7} />
               </span>
-              <h3 className="relative text-[1.15rem] font-semibold text-white">Expert Nutrition</h3>
-              <p className="relative mt-2 text-[0.88rem] leading-relaxed text-white/70">
-                Strategic dietary guidance for long-term results.
-              </p>
+              <div className="relative">
+                <span className="stamp text-white/50">{athlete.eyebrow}</span>
+                <h3 className="mt-1.5 text-[1.15rem] font-bold text-white">{athlete.title}</h3>
+                <p className="mt-2 text-[0.88rem] leading-relaxed text-white/70">{athlete.body}</p>
+                <div className="mt-3">
+                  <ModeTag>{athlete.mode}</ModeTag>
+                </div>
+              </div>
             </article>
           </div>
         </Reveal>

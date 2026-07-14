@@ -5,16 +5,6 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-function measureStableViewport() {
-  const probe = document.createElement("div");
-  probe.style.cssText =
-    "position:fixed;left:-9999px;top:0;width:1px;height:100svh;pointer-events:none;visibility:hidden;";
-  document.body.appendChild(probe);
-  const height = Math.round(probe.getBoundingClientRect().height || window.innerHeight);
-  probe.remove();
-  return height;
-}
-
 export function Motion() {
   useEffect(() => {
     const reduce =
@@ -93,82 +83,26 @@ export function Motion() {
         };
       });
 
+      // Mobile / touch: deliberately NO scroll-linked JS animation at all.
+      //
+      // Two approaches were tried and both vibrated on real touch devices:
+      //   1. A genuine GSAP `pin` (position:fixed) — fights native touch-scroll's
+      //      bursty delta events, causing the pinned element to visibly jitter.
+      //   2. A `scrub:true` counter-translate compensating the outgoing section's
+      //      `y` by the scroll delta — on touch devices native scroll is handled
+      //      by the compositor/GPU thread while GSAP's scrub callback runs on the
+      //      main thread. That 1-2 frame desync makes the compensating transform
+      //      perpetually chase the compositor's position, snapping back every
+      //      frame it catches up — which reads as continuous shaking.
+      //
+      // Any main-thread transform trying to counteract compositor-driven touch
+      // scroll has this problem. So on mobile we do nothing: the `[data-rise]`
+      // panels already carry a higher z-index, `.panel-reveal` (top shadow) and
+      // `.rounded-panel-top`, so they simply stack in normal document flow and
+      // scroll into place with a soft rounded seam — no "frozen outgoing panel"
+      // illusion, but perfectly smooth, since there is nothing left to desync.
       mm.add("(max-width: 768px), (pointer: coarse)", () => {
-        let stableHeight = measureStableViewport();
-        let previousWidth = window.innerWidth;
-        let resizeTimer: number | null = null;
-        const timelines: gsap.core.Timeline[] = [];
-
-        const buildMobileTransition = (incoming: HTMLElement, id: string) => {
-          const outgoing = incoming.previousElementSibling as HTMLElement | null;
-          if (!outgoing) return;
-
-          ScrollTrigger.getById(id)?.kill(true);
-          gsap.set(incoming, { clearProps: "transform" });
-          gsap.set(incoming, { willChange: "transform", force3D: true });
-
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              id,
-              trigger: incoming,
-              start: "top bottom",
-              end: `+=${stableHeight}`,
-              pin: outgoing,
-              pinSpacing: false,
-              scrub: 0.45,
-              anticipatePin: 1,
-              fastScrollEnd: true,
-              invalidateOnRefresh: false,
-            },
-          });
-
-          tl.fromTo(
-            incoming,
-            { y: stableHeight * 0.18 },
-            { y: 0, ease: "none" }
-          );
-
-          timelines.push(tl);
-        };
-
-        const setup = async () => {
-          await document.fonts?.ready;
-          buildMobileTransition(
-            document.getElementById("services-panel") as HTMLElement,
-            "about-services-mobile"
-          );
-          buildMobileTransition(
-            document.getElementById("faq") as HTMLElement,
-            "pricing-faq-mobile"
-          );
-          ScrollTrigger.refresh();
-        };
-        void setup();
-
-        const onResize = () => {
-          if (resizeTimer) window.clearTimeout(resizeTimer);
-          resizeTimer = window.setTimeout(() => {
-            const currentWidth = window.innerWidth;
-            if (Math.abs(currentWidth - previousWidth) > 2) {
-              previousWidth = currentWidth;
-              stableHeight = measureStableViewport();
-              ScrollTrigger.refresh();
-            }
-          }, 220);
-        };
-        window.addEventListener("resize", onResize, { passive: true });
-        window.addEventListener("orientationchange", onResize, { passive: true });
-
-        return () => {
-          window.removeEventListener("resize", onResize);
-          window.removeEventListener("orientationchange", onResize);
-          if (resizeTimer) window.clearTimeout(resizeTimer);
-          timelines.forEach((tl) => {
-            tl.scrollTrigger?.kill(true);
-            tl.kill();
-          });
-          gsap.set(["#services-panel", "#faq"], { clearProps: "transform,willChange" });
-        };
+        return () => {};
       });
     });
 

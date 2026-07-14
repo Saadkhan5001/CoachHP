@@ -3,16 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --accent: #8cff00;
-  --dark-bg: #0f0f0f;
-  --dark-card: #1c1c1c;
-  --dark-card-2: #141414;
-  --light-bg: #f9f9f9;
-  --light-card: #ffffff;
-  --muted-dark: #9b9b9b;
-  --muted-light: #565656;
-  --border-dark: rgba(255, 255, 255, 0.1);
-  --border-light: rgba(15, 15, 15, 0.08);
+  /* Industrial palette — Coach P Factory. See BRAND_AUDIT.md §10. */
+  --ink: #0b0b0c; /* near-black base */
+  --graphite: #141517; /* cards */
+  --gunmetal: #1c1e22; /* raised surfaces */
+  --steel: #2a2d33; /* borders / hairlines */
+  --bone: #f4f2ee; /* warm off-white light sections */
+  --bone-card: #ffffff;
+  --accent: #ec5b22; /* molten / forge orange (single energetic accent) */
+  --accent-deep: #c8460f;
+  --muted-dark: #8b8f96; /* muted text on dark */
+  --muted-light: #5c5b55; /* muted text on light */
+  --border-dark: rgba(255, 255, 255, 0.09);
+  --border-light: rgba(11, 11, 12, 0.1);
 }
 
 * {
@@ -26,8 +29,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--dark-bg);
-  color: #f2f2f2;
+  background: var(--ink);
+  color: #ededec;
   font-family: var(--font-inter), system-ui, sans-serif;
   overflow-x: hidden;
 }
@@ -47,46 +50,76 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Typography helpers */
+/* ---- Typography ---- */
 .h-hero {
-  font-size: clamp(2.75rem, 6.2vw, 5.1rem);
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-  font-weight: 600;
+  font-size: clamp(2.9rem, 7vw, 5.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 .h-section {
-  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.04em;
-  font-weight: 600;
+  font-size: clamp(2.1rem, 4.6vw, 3.3rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-weight: 700;
 }
 .h-card-lg {
-  font-size: clamp(1.6rem, 2.4vw, 2rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.5rem, 2.4vw, 1.95rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
   font-weight: 600;
+}
+/* Uppercase condensed display treatment for hero / big statements */
+.display {
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+}
+/* Small stamped uppercase micro-label */
+.stamp {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: 0.72rem;
 }
 .text-accent {
   color: var(--accent);
 }
 
-/* Rounded top for rising/overlapping panels */
-.rounded-panel-top {
-  border-top-left-radius: clamp(26px, 4.6vw, 70px);
-  border-top-right-radius: clamp(26px, 4.6vw, 70px);
+/* ---- Industrial surface helpers ---- */
+.hairline {
+  border: 1px solid var(--border-dark);
+}
+/* faint technical grid used behind dark sections */
+.factory-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.factory-grid-light {
+  background-image:
+    linear-gradient(to right, rgba(11, 11, 12, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 11, 12, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
-/* Pinned-reveal panels: the incoming panel is a foreground sheet that slides
-   up over the pinned outgoing section. A soft top shadow sells the lift. */
+/* Rounded top for rising/overlapping panels (section transitions) */
+.rounded-panel-top {
+  border-top-left-radius: clamp(22px, 3.6vw, 46px);
+  border-top-right-radius: clamp(22px, 3.6vw, 46px);
+}
+
+/* Pinned-reveal panels: incoming panel is a foreground sheet sliding up. */
 .panel-reveal {
-  box-shadow: 0 -22px 60px -30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 -22px 60px -30px rgba(0, 0, 0, 0.7);
   will-change: transform;
 }
 
-/* Reveal animation base (JS toggles .is-in) */
+/* Reveal animation base (JS toggles inline) */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(24px);
   will-change: transform, opacity;
 }
 
@@ -111,5 +144,5 @@ html.lenis body {
 
 ::selection {
   background: var(--accent);
-  color: #0f0f0f;
+  color: #0b0b0c;
 }

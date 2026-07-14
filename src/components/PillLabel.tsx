@@ -2,17 +2,19 @@ type Props = {
   children: React.ReactNode;
   theme?: "dark" | "light";
   className?: string;
+  dot?: boolean;
 };
 
-export function PillLabel({ children, theme = "dark", className = "" }: Props) {
+export function PillLabel({ children, theme = "dark", className = "", dot = true }: Props) {
   const styles =
     theme === "dark"
-      ? "bg-white/[0.06] border-white/10 text-white/80"
-      : "bg-black/[0.05] border-black/[0.06] text-black/70";
+      ? "border-white/15 text-white/70"
+      : "border-black/15 text-black/60";
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-4 py-1.5 text-[0.8rem] font-medium backdrop-blur-sm ${styles} ${className}`}
+      className={`inline-flex items-center gap-2 rounded-[3px] border px-3 py-1.5 text-[0.68rem] font-semibold uppercase leading-none tracking-[0.2em] ${styles} ${className}`}
     >
+      {dot && <span aria-hidden className="h-1.5 w-1.5 shrink-0 bg-accent" />}
       {children}
     </span>
   );
