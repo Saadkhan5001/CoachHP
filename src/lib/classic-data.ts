@@ -183,7 +183,7 @@ export const PRICING = [
     name: "Online Training",
     icon: "globe" as const,
     body: "Personalized online coaching with direct support and clear, immediate action.",
-    price: "$149",
+    price: "$299",
     period: "/month",
     featured: false,
     features: [
