@@ -1,0 +1,19 @@
+
+> curtis-coach@1.0.0 dev
+> next dev -p 3020
+
+   ▲ Next.js 15.5.20
+   - Local:        http://localhost:3020
+   - Network:      http://10.212.134.201:3020
+
+ ✓ Starting...
+ ✓ Ready in 3.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 2.8s (638 modules)
+ GET / 200 in 5144ms
+ ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 560ms
+ GET / 200 in 580ms
+ GET / 200 in 631ms
+ GET / 200 in 641ms
