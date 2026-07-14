@@ -13,21 +13,28 @@ export function About() {
       id="about"
       data-nav-theme="light"
       data-rise
-      className="panel-reveal rounded-panel-top relative z-[2] bg-light-bg pb-20 pt-14 text-dark-bg sm:pb-24 sm:pt-20"
+      className="panel-reveal rounded-panel-top relative z-[2] bg-light-bg pb-20 pt-20 text-dark-bg sm:pb-24 sm:pt-[7.2rem]"
     >
-      <SectionHeading label="About Me" theme="light" subtitle="This level of progress is driven by custom training, structured programming, and accountability every step of the way.">
+      <SectionHeading
+        label="About Me"
+        theme="light"
+        className="classic-about-heading"
+        headingStyle={{ fontSize: "clamp(2.1rem, 4.6vw, 3rem)", lineHeight: 1 }}
+        subtitleStyle={{ maxWidth: "580px", lineHeight: 1.35 }}
+        subtitle="This level of progress is driven by custom training, structured programming, and accountability every step of the way."
+      >
         Meet Your Coach
       </SectionHeading>
 
-      <div className="mx-auto mt-10 grid max-w-content-classic gap-3 px-5 sm:mt-14 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)_minmax(0,1.5fr)] lg:px-6">
+      <div className="mx-auto mt-10 grid max-w-[1088px] gap-3 px-5 sm:mt-8 lg:h-[clamp(560px,42vw,608px)] lg:grid-cols-[minmax(0,0.61fr)_minmax(0,1fr)_minmax(0,1.12fr)] lg:px-6">
         {/* Left column */}
-        <Reveal className="flex flex-col gap-3 lg:h-[620px]">
+        <Reveal className="grid min-h-0 gap-3 lg:h-full lg:grid-rows-[repeat(3,minmax(0,1fr))]">
           {ABOUT_CREDENTIALS.map((c) => {
             const Icon = CRED_ICON[c.icon];
             return (
               <div
                 key={c.title}
-                className="flex flex-1 flex-col justify-between rounded-3xl bg-white p-6"
+                className="flex min-h-0 min-h-[180px] flex-col justify-between rounded-3xl bg-white p-6 lg:h-full lg:min-h-0"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black/[0.04]">
                   <Icon className="h-5 w-5 text-black/80" strokeWidth={1.8} />
@@ -40,7 +47,7 @@ export function About() {
             );
           })}
           {/* Train-in-person card */}
-          <div className="relative flex-1 overflow-hidden rounded-3xl">
+          <div className="relative min-h-[180px] overflow-hidden rounded-3xl lg:h-full lg:min-h-0">
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: "url(/images/classic/gym-location.jpg)" }}
@@ -64,9 +71,9 @@ export function About() {
         </Reveal>
 
         {/* Center portrait */}
-        <Reveal delay={0.08} className="lg:h-[620px]">
+        <Reveal delay={0.08} className="min-h-0 lg:h-full">
           <div
-            className="h-[360px] w-full sm:h-[520px] overflow-hidden rounded-3xl bg-cover bg-top lg:h-full"
+            className="h-[360px] w-full overflow-hidden rounded-3xl bg-cover bg-top sm:h-[520px] lg:h-full"
             style={{ backgroundImage: "url(/images/classic/coach.jpg)" }}
             role="img"
             aria-label="Coach P, personal trainer"
@@ -74,18 +81,18 @@ export function About() {
         </Reveal>
 
         {/* Right bio card */}
-        <Reveal delay={0.16} className="lg:h-[620px]">
-          <div className="flex h-full flex-col justify-between rounded-3xl bg-white p-8 sm:p-10">
+        <Reveal delay={0.16} className="min-h-0 lg:h-full">
+          <div className="flex h-full flex-col rounded-3xl bg-white p-6">
             <div>
-              <h3 className="text-[2rem] font-semibold tracking-tight">Coach P</h3>
-              <p className="mt-5 text-[0.98rem] leading-relaxed text-black/60">
+              <h3 className="text-[2.15rem] font-semibold leading-[1.05] tracking-tight">Coach P</h3>
+              <p className="mt-4 text-[0.95rem] leading-[1.42] text-black/60">
                 With over two decades in the game, I specialise in building real
                 strength, improving conditioning, and developing athletic
                 performance. My coaching is rooted in martial-arts discipline,
                 technical precision, and measurable progression, with a clear
                 focus on results that last rather than quick fixes.
               </p>
-              <p className="mt-4 text-[0.98rem] leading-relaxed text-black/60">
+              <p className="mt-5 text-[0.95rem] leading-[1.42] text-black/60">
                 I prioritise strong fundamentals, progressive overload, and
                 purposeful conditioning to build resilient, capable athletes. I
                 hold a high standard for the work I deliver, ensuring every
@@ -93,9 +100,11 @@ export function About() {
                 continuous improvement.
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-              <PrimaryButton href="#contact">Get in Touch</PrimaryButton>
-              <div className="flex items-center gap-3">
+            <div className="mt-8 flex flex-col items-start gap-5 sm:mt-auto sm:flex-row sm:items-end sm:justify-between">
+              <PrimaryButton href="#contact" className="min-h-[42px] min-w-[150px] justify-between">
+                Get in Touch
+              </PrimaryButton>
+              <div className="flex flex-col items-center gap-2 self-center sm:self-auto">
                 <span className="text-[0.85rem] text-black/50">Follow me:</span>
                 <SocialIcons variant="light" />
               </div>
