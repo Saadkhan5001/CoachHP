@@ -1,4 +1,18 @@
-# Curtis — Personal Trainer Website — Handover
+# Handover
+
+> **⚠️ REBRANDED — read this first.** The codebase was originally built as a recreation of the "Curtis – Personal Trainer" Framer template (documented below). It has since been **rebranded to "Coach P Factory"** — an industrial performance-coaching concept site (Pierrot Massenat, [@coachp_factory](https://www.instagram.com/coachp_factory)) with a new `/academy` concept page. The **engineering** described below (Next.js/GSAP/Lenis architecture, the panel-transition/`data-rise` system, the Motion.tsx mobile-vibration handling, breakpoints) is **still accurate**. The **brand, palette, copy, data, and image paths have changed**:
+> - Brand/positioning/palette/tone → see **`BRAND_AUDIT.md`** (verified vs. assumed brand facts).
+> - Design tokens are now an industrial dark + molten-orange (`--accent: #ec5b22`) system in `globals.css` / `tailwind.config.ts` (no more neon green).
+> - Homepage content lives in `src/lib/data.ts`; Academy concept content in `src/lib/academy-data.ts`.
+> - Sections were reworked (About→credibility, Services→Coaching, Process→The Factory Method, Transformations→"From the Work to the Stage", Reviews→"The Factory Standards", Pricing→Coaching Options) and an **Academy preview** + **`/academy` route with a dashboard mockup** were added.
+> - Assets moved to **`public/images/coach-p/`** (placeholders — see that folder's `SOURCES.md`). The old `public/images/curtis/` directory was removed.
+> - Section anchor IDs changed (`#coaching`, `#method`, `#results`, `#standards`, `#options`, `#academy-preview`). Nav/footer updated accordingly.
+>
+> Everything below describes the original Curtis build and remains the reference for how the underlying system works.
+
+---
+
+# Curtis — Personal Trainer Website — Handover (original build)
 
 A production-quality, pixel-accurate recreation of the **"Curtis – Personal Trainer"** Framer template, rebuilt as a real, responsive, component-driven website. This document is the single source of truth for anyone (human or AI) picking up the project.
 
