@@ -81,7 +81,15 @@ export function About() {
         <Reveal delay={0.16} className="lg:h-[620px]">
           <div className="flex h-full flex-col justify-between border border-black/10 bg-white p-8 sm:p-10">
             <div>
-              <span className="stamp text-accent">Pierrot “Coach P” Massenat</span>
+              <div className="flex items-center gap-3">
+                <span
+                  className="h-14 w-14 shrink-0 overflow-hidden border border-black/10 bg-cover bg-center"
+                  style={{ backgroundImage: "url(/images/coach-p/coach-p-profile.webp)" }}
+                  role="img"
+                  aria-label="Pierrot Massenat, Coach P, at a physique competition"
+                />
+                <span className="stamp text-accent">Pierrot “Coach P” Massenat</span>
+              </div>
               <h3 className="mt-3 text-[2rem] font-extrabold uppercase leading-none tracking-[-0.02em]">
                 Coach P
               </h3>

@@ -2,7 +2,9 @@
 
 **Purpose:** Inform the concept-presentation rebrand of the existing "Curtis" fitness template into a tailored **Coach P Factory** site. This audit separates **verified** signals (observed on the live public Instagram profile on the research date) from **assumptions** that require client confirmation before any public claim is made.
 
-**Primary source:** [instagram.com/coachp_factory](https://www.instagram.com/coachp_factory) — profile header + 12+ recent post/reel captions read via the accessibility tree. Screenshots of the grid could not be captured (Instagram renderer timed out), so **exact brand colors could not be sampled** — see §4 and §10.
+**Primary source:** [instagram.com/coachp_factory](https://www.instagram.com/coachp_factory) — profile header, full bio text, and 10 recent post/reel captions read via the accessibility tree and the page's own natural (unmodified) network response during normal browsing. Screenshots of the grid could not be captured (Instagram's renderer times out in this environment), and anonymous/logged-out viewing caps the visible grid at 10 posts (Instagram's own pagination limit for logged-out visitors — not a research shortcut), so **exact brand colors still could not be sampled** — see §4 and §10.
+
+> **Update (second research pass):** the full profile bio is now confirmed verbatim (see below), which resolves the previously-flagged martial-arts assumption. One real photograph (his profile picture) was also acquired directly from Instagram's public CDN — see `public/images/coach-p/SOURCES.md` and `VISUAL_ASSET_AUDIT.md`.
 
 ---
 
@@ -29,9 +31,11 @@ Positioning statement (derived): *Performance coaching where disciplined, techni
 - **Technique / exercise-form education** (reel: *"Technique and form, are very important in any exercise. Pay attention to details and you'll get better…"*).
 - **Coach + active competitor** (reel: *"COACH P STEPPED ON STAGE FOR THE FIRST TIME"* — a genuine coach-to-competitor storyline).
 
-**Strongly implied (needs confirmation of specifics):**
-- **Martial-arts foundation.** Bio text is truncated to "Bl…" on the public page (very likely *"Black belt"*); captions use the 🥋 emoji. The **specific styles** (the task brief suggests Taekwondo + Shotokan) are **NOT verified** — treat as assumption.
-- **Strength & conditioning / agility** as named service lines: consistent with 20+ yrs experience and physique coaching, but not explicitly labelled on the profile. Present as reasonable specialties, flagged internally as assumptions.
+**Now fully verified (full bio text confirmed via the profile's own public data):**
+- **"Black Belt in Taekwondo & Shotokan🥋"** — confirmed verbatim. No longer an assumption.
+- **"Strength, Conditioning & Agility Coach 🏀⚽️🎾🏈"** — confirmed verbatim as his own stated specialty line (with sport emoji suggesting he also works with team-sport athletes: basketball, soccer, tennis, football). No longer an assumption.
+
+Full verbatim bio: *"Personal Fitness Trainer 💪🏽 / Over Two Decades of Training Experience 🏅 / Black Belt in Taekwondo & Shotokan🥋 / Strength, Conditioning & Agility Coach 🏀⚽️🎾🏈"*
 
 ## 4. Repeated visual colors
 
@@ -100,9 +104,7 @@ Controlled industrial system (from the brief's fallback, since no palette could 
 - The **"Factory" concept and the discipline/"the work"/"Stay up" language** are genuinely his.
 
 **Assumptions requiring client sign-off (used only as neutral/"concept" wording, never as hard claims):**
-- Martial-arts foundation is real (🥋 / "Bl…") but **style & rank unconfirmed** (Taekwondo/Shotokan = unverified).
-- Strength & conditioning / agility as *named* services.
-- Youth/athlete-development and martial-arts-athlete audiences.
+- Youth/athlete-development and martial-arts-athlete audiences (plausible given the sport emoji in his bio and team names like "Team BlackRose," but not explicitly labelled as youth-specific).
 - **Entire visual palette, accent color, and typography** (no brand assets could be sampled).
 - Any **location, prices, certifications, client numbers** → intentionally omitted from the site.
 

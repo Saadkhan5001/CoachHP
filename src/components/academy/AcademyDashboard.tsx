@@ -61,9 +61,12 @@ export function AcademyDashboard() {
       {/* Top bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 border border-white/10 bg-dark-card2 px-4 py-3">
         <div className="flex items-center gap-3">
-          <span className="grid h-8 w-8 place-items-center border border-accent text-[11px] font-extrabold text-accent">
-            CP
-          </span>
+          <span
+            className="h-8 w-8 shrink-0 border border-accent bg-cover bg-center"
+            style={{ backgroundImage: "url(/images/coach-p/coach-p-profile.webp)" }}
+            role="img"
+            aria-label="Coach P"
+          />
           <div className="leading-tight">
             <p className="text-[13px] font-bold text-white">{d.program}</p>
             <p className="stamp text-white/40">
@@ -135,9 +138,12 @@ export function AcademyDashboard() {
         {/* Coach message */}
         <Panel title="Coach Message">
           <div className="flex items-center gap-2.5">
-            <span className="grid h-9 w-9 place-items-center border border-accent text-[11px] font-extrabold text-accent">
-              CP
-            </span>
+            <span
+              className="h-9 w-9 shrink-0 border border-accent bg-cover bg-center"
+              style={{ backgroundImage: "url(/images/coach-p/coach-p-profile.webp)" }}
+              role="img"
+              aria-label="Coach P"
+            />
             <div className="leading-tight">
               <p className="text-[13px] font-bold text-white">{d.coachMessage.from}</p>
               <p className="stamp text-accent">Your Coach</p>
