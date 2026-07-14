@@ -197,7 +197,7 @@ export const PRICING = [
     name: "In-Person Training",
     icon: "users" as const,
     body: "Face to face, in-person coaching that delivers direct guidance and fast, actionable results.",
-    price: "$249",
+    price: "$1499",
     period: "/month",
     featured: true,
     features: [

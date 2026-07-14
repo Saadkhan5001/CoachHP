@@ -89,22 +89,17 @@ export function Transformations() {
         </p>
       </div>
 
-      <div className="relative mt-7 touch-pan-y [--story-slide:994px]">
-        <div className="overflow-hidden xl:overflow-visible" ref={emblaRef}>
+      <div className="relative mx-auto mt-7 max-w-[994px] touch-pan-y px-2 [--story-slide:994px]">
+        <div className="overflow-hidden rounded-[28px]" ref={emblaRef}>
           <div className="flex items-center">
             {TRANSFORMATIONS.map((item, i) => (
               <div
                 key={item.name + i}
-                className="min-w-0 flex-[0_0_min(calc(100vw_-_40px),var(--story-slide))] px-2"
+                className="min-w-0 flex-[0_0_100%]"
                 aria-hidden={selected !== i}
               >
                 <div className="relative h-auto overflow-hidden rounded-[28px] xl:h-[472px]">
                   <StoryCard item={item} />
-                  <div
-                    className={`pointer-events-none absolute inset-0 rounded-[28px] bg-black transition-opacity duration-500 ${
-                      selected === i ? "opacity-0" : "opacity-[0.58]"
-                    }`}
-                  />
                 </div>
               </div>
             ))}
@@ -115,7 +110,7 @@ export function Transformations() {
           type="button"
           onClick={scrollPrev}
           aria-label="Previous story"
-          className="absolute left-4 top-1/2 xl:left-[calc(50%-(min(calc(100vw-44px),var(--story-slide))/2)-28px)] z-20 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20"
+          className="absolute left-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
@@ -123,7 +118,7 @@ export function Transformations() {
           type="button"
           onClick={scrollNext}
           aria-label="Next story"
-          className="absolute right-4 top-1/2 xl:right-[calc(50%-(min(calc(100vw-44px),var(--story-slide))/2)-28px)] z-20 flex h-12 w-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20"
+          className="absolute right-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20"
         >
           <ChevronRight className="h-6 w-6" />
         </button>
