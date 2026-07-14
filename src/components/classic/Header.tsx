@@ -8,9 +8,13 @@ import { NAV_LINKS } from "@/lib/classic-data";
 const SHRINK_DISTANCE = 260; // px of scroll over which the nav collapses
 const MAX_W_OPEN = 1120;
 const MAX_W_COMPACT = 840;
+const LOGO_BASE_MOBILE = 64; // px, matches Logo's h-16
+const LOGO_BASE_DESKTOP = 80; // px, matches Logo's sm:h-20
+const LOGO_SHRINK = 18; // px the logo shrinks by at full scroll (desktop/fine-pointer only)
 
 export function Header() {
   const barRef = useRef<HTMLDivElement | null>(null);
+  const logoRef = useRef<HTMLImageElement | null>(null);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,6 +34,11 @@ export function Header() {
         const w = MAX_W_OPEN + (MAX_W_COMPACT - MAX_W_OPEN) * p;
         bar.style.maxWidth = `${w}px`;
         bar.style.height = `${56 - 4 * p}px`;
+      }
+      const logoImg = logoRef.current;
+      if (logoImg) {
+        const base = window.innerWidth >= 640 ? LOGO_BASE_DESKTOP : LOGO_BASE_MOBILE;
+        logoImg.style.height = `${base - LOGO_SHRINK * p}px`;
       }
       const line = 56;
       let current: "dark" | "light" = "dark";
@@ -71,7 +80,7 @@ export function Header() {
         style={{ maxWidth: MAX_W_OPEN }}
       >
         <a href="#top" className="flex items-center text-white" aria-label="Coach P — home">
-          <Logo />
+          <Logo ref={logoRef} />
         </a>
 
         {/* Desktop links */}

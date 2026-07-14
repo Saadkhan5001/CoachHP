@@ -1,23 +1,21 @@
-export function Logo({ className = "" }: { className?: string }) {
+import Image from "next/image";
+import { forwardRef } from "react";
+
+export const Logo = forwardRef<HTMLImageElement, { className?: string }>(function Logo(
+  { className = "" },
+  ref
+) {
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <svg
-        width="26"
-        height="26"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-        className="shrink-0"
-      >
-        <g stroke="#c01d18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 9v6" />
-          <path d="M6 6v12" />
-          <path d="M18 6v12" />
-          <path d="M21 9v6" />
-          <path d="M6 12h12" />
-        </g>
-      </svg>
-      <span className="text-[1.15rem] font-semibold tracking-tight">Coach&nbsp;P</span>
+    <span className={`inline-flex items-center ${className}`} aria-label="Coach P Factory">
+      <Image
+        ref={ref}
+        src="/images/CoachP-logo.png"
+        alt=""
+        width={700}
+        height={360}
+        priority
+        className="h-16 w-auto object-contain sm:h-20"
+      />
     </span>
   );
-}
+});

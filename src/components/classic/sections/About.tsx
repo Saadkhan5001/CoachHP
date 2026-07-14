@@ -74,7 +74,7 @@ export function About() {
         <Reveal delay={0.08} className="min-h-0 lg:h-full">
           <div
             className="h-[360px] w-full overflow-hidden rounded-3xl bg-cover bg-top sm:h-[520px] lg:h-full"
-            style={{ backgroundImage: "url(/images/classic/coach.jpg)" }}
+            style={{ backgroundImage: "url(/images/classic/Meet-coach.jpg)" }}
             role="img"
             aria-label="Coach P, personal trainer"
           />
