@@ -1,0 +1,72 @@
+/* ============================================================
+   /classic route — scoped design system.
+   Everything here is namespaced under `.classic-site` so it
+   NEVER affects the approved `/` homepage or `/academy` route.
+   ============================================================ */
+
+.classic-site {
+  /* Coach P red accent (replaces the template's neon green) */
+  --classic-accent: #c01d18;
+  --classic-accent-hover: #a91814;
+  --classic-accent-active: #8e1411;
+  --classic-accent-soft: rgba(192, 29, 24, 0.12);
+  --classic-accent-border: rgba(192, 29, 24, 0.35);
+
+  /* Override the CSS var consumed by `.text-accent`, the logo stroke,
+     CountUp's default suffix and selection — scoped to classic only. */
+  --accent: #c01d18;
+
+  /* Supporting palette (original template values) */
+  --classic-dark-bg: #0f0f0f;
+  --classic-dark-card: #1c1c1c;
+  --classic-dark-card-2: #141414;
+  --classic-light-bg: #f9f9f9;
+
+  background: #0f0f0f;
+  color: #f2f2f2;
+}
+
+/* ---- Restore original template typography (override industrial helpers) ---- */
+.classic-site .h-hero {
+  font-size: clamp(2.75rem, 6.2vw, 5.1rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+  text-transform: none;
+}
+.classic-site .h-section {
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  text-transform: none;
+}
+.classic-site .h-card-lg {
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-transform: none;
+}
+
+/* ---- Restore original template palette + panel geometry within classic ---- */
+.classic-site .bg-dark-bg { background-color: #0f0f0f; }
+.classic-site .bg-light-bg { background-color: #f9f9f9; }
+.classic-site .bg-dark-card2 { background-color: #141414; }
+.classic-site .bg-dark-card { background-color: #1c1c1c; }
+.classic-site .text-dark-bg { color: #0f0f0f; }
+
+/* Larger rounded rising-panel corners (~60–90px on desktop) */
+.classic-site .rounded-panel-top {
+  border-top-left-radius: clamp(26px, 4.6vw, 70px);
+  border-top-right-radius: clamp(26px, 4.6vw, 70px);
+}
+
+/* Original content width for fidelity */
+.classic-site .max-w-content-classic { max-width: 1080px; }
+
+/* Red text selection inside the classic route */
+.classic-site ::selection {
+  background: #c01d18;
+  color: #ffffff;
+}
