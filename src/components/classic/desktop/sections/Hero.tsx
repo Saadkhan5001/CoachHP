@@ -14,7 +14,7 @@ export function Hero() {
       {/* Photographic background */}
       <div
         className="absolute inset-0 bg-cover bg-[position:64%_center] bg-no-repeat md:bg-[position:82%_28%]"
-        style={{ backgroundImage: "url(/images/classic/hero.jpeg)" }}
+        style={{ backgroundImage: "url(/images/classic/Hero-background-v2.png)" }}
         aria-hidden="true"
       />
       {/* Left legibility gradient */}
