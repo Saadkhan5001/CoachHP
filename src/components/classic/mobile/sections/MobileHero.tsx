@@ -12,11 +12,25 @@ import { HERO_STATS } from "@/lib/classic-data";
 export function MobileHero() {
   return (
     <section id="top" data-nav-theme="dark" className="relative flex flex-col justify-end overflow-hidden bg-[#0f0f0f]" style={{ minHeight: "78svh" }}>
+      {/* Mobile framing: the source is a wide 1600×837 landscape with the
+          athlete at ~63–92% of its width and his head almost touching the top
+          edge. Plain `cover` height-fits it, so a phone shows only a ~37%-wide
+          slice — at the old 62% anchor the face/right arm were cut by the
+          window edge and the head sat behind the fixed header. Instead:
+          size slightly under height-cover (auto 88%), anchor bottom so the
+          figure gains headroom below the header, and anchor 80% so the full
+          body sits inside the right half of the frame. The band above the
+          image blends into the section's #0f0f0f via the top gradient. */}
       <div
-        className="absolute inset-0 bg-cover bg-[position:62%_center]"
-        style={{ backgroundImage: "url(/images/classic/hero.jpeg)" }}
+        className="absolute inset-0 bg-no-repeat"
+        style={{
+          backgroundImage: "url(/images/classic/hero.jpeg)",
+          backgroundSize: "auto 88%",
+          backgroundPosition: "84% bottom",
+        }}
         aria-hidden="true"
       />
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#0f0f0f] to-transparent" aria-hidden="true" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10" aria-hidden="true" />
       <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/30 to-transparent" aria-hidden="true" />
 
@@ -26,13 +40,15 @@ export function MobileHero() {
             Personal Coach
           </span>
         </ClassicMobileReveal>
+        {/* Heading + paragraph are width-capped so they stack on the left
+            and keep the athlete (right side of the frame) fully visible. */}
         <ClassicMobileReveal delay={60}>
-          <h1 className="cm-h-hero mt-4 text-white">
+          <h1 className="cm-h-hero mt-4 max-w-[7.2em] text-white">
             Meet the <span className="cm-accent-text">Stronger</span> Version of You
           </h1>
         </ClassicMobileReveal>
         <ClassicMobileReveal delay={120}>
-          <p className="mt-4 max-w-[34ch] text-[0.98rem] leading-relaxed text-white/75">
+          <p className="mt-4 max-w-[24ch] text-[0.95rem] leading-relaxed text-white/75">
             Expert coaching built on proven methods to help you move better, build real strength, and create lasting,
             measurable progress.
           </p>
