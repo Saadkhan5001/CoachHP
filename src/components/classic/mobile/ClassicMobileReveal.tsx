@@ -10,10 +10,10 @@ type Props = {
 };
 
 /**
- * One-shot IntersectionObserver reveal for /classic-mobile-v2 interior
+ * One-shot IntersectionObserver reveal for /classic-mobile interior
  * content. Hidden state lives in mobile-v2.css behind
  * `@media (scripting: enabled)` so no-JS visitors always see content.
- * Never wrap `.v2-stack` / `.v2-stack-held` / `.v2-stack-riser` in this —
+ * Never wrap `.cm-stack` / `.cm-stack-held` / `.cm-stack-riser` in this —
  * a transformed ancestor silently breaks sticky positioning.
  */
 export function ClassicMobileReveal({ children, delay = 0, className = "" }: Props) {
@@ -43,7 +43,7 @@ export function ClassicMobileReveal({ children, delay = 0, className = "" }: Pro
   return (
     <div
       ref={ref}
-      className={`v2-reveal ${shown ? "v2-in" : ""} ${className}`}
+      className={`cm-reveal ${shown ? "cm-in" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

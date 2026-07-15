@@ -1,5 +1,5 @@
 import { PrimaryButton } from "../PrimaryButton";
-import { Reveal } from "../../Reveal";
+import { Reveal } from "@/components/Reveal";
 import { SocialIcons } from "../Socials";
 import { FOOTER_LINKS } from "@/lib/classic-data";
 

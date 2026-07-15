@@ -18,7 +18,7 @@ export function MobileAbout() {
     <section
       id="about"
       data-nav-theme="light"
-      className="v2-panel-top relative bg-[#f9f9f9] pb-16 text-[#0f0f0f]"
+      className="cm-panel-top relative bg-[#f9f9f9] pb-16 text-[#0f0f0f]"
       style={{ paddingTop: "64px" }}
     >
       <ClassicMobileSectionHeading

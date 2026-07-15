@@ -26,9 +26,7 @@ export function Header() {
 
     const update = () => {
       ticking = false;
-      const isMobile = window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
-      const y = isMobile ? 0 : window.scrollY;
-      const p = Math.min(Math.max(y / SHRINK_DISTANCE, 0), 1);
+      const p = Math.min(Math.max(window.scrollY / SHRINK_DISTANCE, 0), 1);
       const bar = barRef.current;
       if (bar) {
         const w = MAX_W_OPEN + (MAX_W_COMPACT - MAX_W_OPEN) * p;

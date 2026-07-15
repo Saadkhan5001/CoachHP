@@ -44,14 +44,14 @@ export function MobileTransformations() {
         label="Client Stories"
         subtitle="No filters. Just discipline, consistency, and serious results. This is what happens when commitment meets a proven system."
       >
-        <span className="v2-accent-text">Results</span> Speak for Themselves
+        <span className="cm-accent-text">Results</span> Speak for Themselves
       </ClassicMobileSectionHeading>
 
       <ClassicMobileReveal className="mt-9">
-        <div className="v2-embla" ref={emblaRef}>
-          <div className="v2-embla-track">
+        <div className="cm-embla" ref={emblaRef}>
+          <div className="cm-embla-track">
             {TRANSFORMATIONS.map((item, i) => (
-              <div key={item.name + i} className="v2-embla-slide pr-3" aria-hidden={selected !== i}>
+              <div key={item.name + i} className="cm-embla-slide pr-3" aria-hidden={selected !== i}>
                 <article className="flex h-full flex-col rounded-3xl bg-[#191919] p-3.5">
                   <div className="grid grid-cols-2 gap-2.5">
                     {[

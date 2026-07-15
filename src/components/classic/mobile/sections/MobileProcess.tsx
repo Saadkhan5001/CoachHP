@@ -16,7 +16,7 @@ export function MobileProcess() {
         label="Process"
         subtitle="A step-by-step process designed to get you real, measurable results. From your first consultation to your transformation."
       >
-        How It Works <span className="v2-accent-text">Step by Step</span>
+        How It Works <span className="cm-accent-text">Step by Step</span>
       </ClassicMobileSectionHeading>
 
       <div className="mt-9 flex flex-col gap-3.5">
@@ -70,7 +70,7 @@ export function MobileProcess() {
             <div className="absolute inset-0 bg-black/60" />
             <div className="relative flex flex-col items-center p-7 py-10 text-center">
               <h3 className="text-[1.6rem] font-semibold leading-tight text-white">
-                This Isn&apos;t Motivation. <span className="v2-accent-text">It&apos;s Method.</span>
+                This Isn&apos;t Motivation. <span className="cm-accent-text">It&apos;s Method.</span>
               </h3>
               <p className="mt-2 text-[0.95rem] text-white/70">Start Your Journey!</p>
               <div className="mt-5">

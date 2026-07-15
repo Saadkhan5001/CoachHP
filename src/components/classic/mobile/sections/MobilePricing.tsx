@@ -34,7 +34,7 @@ export function MobilePricing() {
           label="Pricing"
           subtitle="Whether you prefer online coaching or in-person sessions, each option offers personalized support to help you reach your goals."
         >
-          Choose <span className="v2-accent-text">Your Plan</span>
+          Choose <span className="cm-accent-text">Your Plan</span>
         </ClassicMobileSectionHeading>
 
         <div className="mt-9 flex flex-col gap-4 px-5">

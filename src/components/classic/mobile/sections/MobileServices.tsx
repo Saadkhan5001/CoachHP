@@ -26,7 +26,7 @@ export function MobileServices() {
         label="Services"
         subtitle="This level of progress is driven by custom training, structured programming, and accountability every step of the way."
       >
-        Personal Training Designed Around <span className="v2-accent-text">Your Goals</span>
+        Personal Training Designed Around <span className="cm-accent-text">Your Goals</span>
       </ClassicMobileSectionHeading>
 
       <div className="mt-9 flex flex-col gap-3.5">

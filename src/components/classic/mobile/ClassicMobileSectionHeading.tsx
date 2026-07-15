@@ -21,7 +21,7 @@ export function ClassicMobileSectionHeading({ label, theme = "dark", subtitle, c
         </span>
       </ClassicMobileReveal>
       <ClassicMobileReveal delay={60}>
-        <h2 className="v2-h-section mt-4">{children}</h2>
+        <h2 className="cm-h-section mt-4">{children}</h2>
       </ClassicMobileReveal>
       {subtitle && (
         <ClassicMobileReveal delay={120}>

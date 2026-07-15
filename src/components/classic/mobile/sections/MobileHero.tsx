@@ -20,15 +20,15 @@ export function MobileHero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10" aria-hidden="true" />
       <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/30 to-transparent" aria-hidden="true" />
 
-      <div className="relative px-5 pb-9" style={{ paddingTop: "calc(var(--v2-header-h) + 40px)" }}>
+      <div className="relative px-5 pb-9" style={{ paddingTop: "calc(var(--cm-header-h) + 40px)" }}>
         <ClassicMobileReveal>
           <span className="inline-flex min-h-[30px] items-center rounded-full border border-white/15 bg-white/[0.08] px-4 text-[0.82rem] font-medium text-white/80 backdrop-blur-sm">
             Personal Coach
           </span>
         </ClassicMobileReveal>
         <ClassicMobileReveal delay={60}>
-          <h1 className="v2-h-hero mt-4 text-white">
-            Meet the <span className="v2-accent-text">Stronger</span> Version of You
+          <h1 className="cm-h-hero mt-4 text-white">
+            Meet the <span className="cm-accent-text">Stronger</span> Version of You
           </h1>
         </ClassicMobileReveal>
         <ClassicMobileReveal delay={120}>

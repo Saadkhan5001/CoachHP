@@ -1,7 +1,9 @@
 /* ============================================================
-   /classic route — scoped design system.
-   Everything here is namespaced under `.classic-site` so it
-   NEVER affects the approved `/` homepage or `/academy` route.
+   /classic — desktop experience styles + shared classic tokens.
+   Everything here is namespaced under `.classic-site` (the desktop
+   experience wrapper) so it NEVER affects `/`, `/academy`, or the
+   mobile experience (which is scoped under `.classic-mobile` in
+   mobile.css).
    ============================================================ */
 
 .classic-site {
@@ -24,12 +26,6 @@
 
   background: #0f0f0f;
   color: #f2f2f2;
-
-  /* Keep touch scrolling fully native: vertical pan + pinch-zoom are
-     left to the browser's own compositor; horizontal gestures are only
-     claimed by the carousels' own JS (Embla), never by page-level CSS. */
-  touch-action: pan-y pinch-zoom;
-  overscroll-behavior-y: auto;
 }
 
 /* ---- Restore original template typography (override industrial helpers) ---- */
@@ -62,7 +58,7 @@
 .classic-site .bg-dark-card { background-color: #1c1c1c; }
 .classic-site .text-dark-bg { color: #0f0f0f; }
 
-/* Larger rounded rising-panel corners (~60–90px on desktop) */
+/* Large rounded rising-panel corners (~60–90px on desktop) */
 .classic-site .rounded-panel-top {
   border-top-left-radius: clamp(26px, 4.6vw, 70px);
   border-top-right-radius: clamp(26px, 4.6vw, 70px);
@@ -75,132 +71,4 @@
 .classic-site ::selection {
   background: #c01d18;
   color: #ffffff;
-}
-
-/* Structural end-of-content marker (see Pricing.tsx/About.tsx) — always
-   zero-size; the transition tail's actual space comes from the outgoing
-   section's own padding-bottom, not from this element. */
-.classic-site .classic-mobile-section-end {
-  height: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/* ============================================================
-   Mobile panel-stacking (About→Services, Pricing→FAQ) — pure CSS,
-   content-first, with a dedicated post-content pinned "terminal visual".
-
-   On mobile/coarse-pointer, Motion.tsx intentionally applies ZERO
-   scroll-linked JavaScript (see its mm.add("(max-width: 768px),
-   (pointer: coarse)") branch) — any main-thread transform trying to
-   counteract touch scroll desyncs from the compositor and vibrates.
-
-   HISTORY (kept as a warning, not a template — each version was
-   verified broken by direct measurement before being replaced):
-   - v1: `position: sticky` directly on the whole outgoing section
-     (About/Pricing). Freezes the FIRST viewport's worth of tall
-     content for the entire hold — the $1,499 Pricing card sat
-     permanently off-screen behind FAQ. Rejected.
-   - v2: content-first with a padding-bottom "transition tail" + a
-     matching negative margin pulling the incoming panel up over it.
-     Fixed the content bug but the pin was mathematically sound and
-     never visually convincing.
-   - v3: a dedicated pinned "terminal visual" stage, but nested *inside*
-     the real outgoing `<section>` (which has `overflow: hidden`, needed
-     to contain its own absolutely-positioned background image).
-     CONFIRMED BROKEN by direct measurement: the pin's own
-     `getBoundingClientRect().top` moved in perfect 1:1 lockstep with
-     `scrollY` — i.e. it never actually stuck, despite
-     `getComputedStyle().position` still reporting `"sticky"` as a CSS
-     *value*. `overflow: hidden` on an ancestor silently defeats
-     `position: sticky`'s real behavior; checking the computed
-     `position` property alone does not prove the element is stuck. As
-     a control: About's pin (whose section has no clipping ancestor)
-     DID measurably stick correctly under the same v3 structure,
-     isolating `overflow: hidden` as the exact cause.
-   - v4 (this version): the pin now lives in a stage that is a
-     page-level sibling of the outgoing section — never a descendant of
-     anything clipped. The REAL incoming section is nested inside that
-     same stage, immediately after the pin, instead of being pulled up
-     from outside with a negative margin. Verified: pin's `top` now
-     holds at exactly `0` (not drifting) for a wide range of scrollY.
-
-   Structure (see ClassicMobileTransitionStage.tsx for the full
-   rationale, including why `data-rise` moves from the incoming section
-   onto the stage wrapper to preserve desktop's
-   `incoming.previousElementSibling` GSAP targeting):
-
-     <section id="about">                <section id="pricing">
-       ...real content...                  ...real content...
-       [data-mobile-stack-boundary]        [data-mobile-stack-boundary]
-     </section>                          </section>
-
-     <div data-rise class="classic-      <div data-rise class="classic-
-       mobile-transition-stage">           mobile-transition-stage">
-       <div class="classic-mobile-         <div class="classic-mobile-
-         transition-pin">                    transition-pin">
-         <AboutTerminalView />                <PricingTerminalView />
-       </div>                              </div>
-       <section id="services-panel">       <section id="faq">
-         ...real incoming content...         ...real incoming content...
-       </section>                          </section>
-     </div>                              </div>
-
-   - Real content (heading, cards, CTAs) stays in normal document flow
-     at natural height, on both mobile and desktop — never sticky, so
-     scrolling always reveals all of it, however tall it is.
-   - The stage wrapper itself carries NO special mobile/desktop styling
-     of its own — it's a transparent structural box. Its rendered size
-     is just whatever its children need.
-   - `.classic-mobile-transition-pin` is `display: none` by default
-     (desktop, and reduced-motion) — contributes zero layout, so the
-     stage's box on desktop is simply the real incoming section's box,
-     keeping Motion.tsx's ScrollTrigger geometry effectively unchanged.
-     On mobile it becomes `position: sticky; height: 100svh` — its own
-     NATURAL FLOW HEIGHT (not a negative margin) is what positions the
-     real incoming section immediately after it, starting exactly one
-     viewport below the stage's top — i.e. at the viewport's bottom
-     edge exactly when the stage is reached.
-   - No stage height is ever set explicitly — it's simply pin height +
-     incoming section's natural height, computed by the browser.
-
-   Scoped to the exact same breakpoint Motion.tsx already uses, so
-   mobile/desktop determination stays consistent across CSS and JS.
-   Desktop is completely unaffected (Motion.tsx's counter-translate
-   transition keeps driving these same section pairs exactly as
-   before). Disabled under reduced-motion, matching Motion.tsx's own
-   reduced-motion short-circuit — the pin collapses to nothing and the
-   incoming section simply follows About/Pricing in plain flow, the
-   same rounded-flow transition Hero→About already uses.
-   ============================================================ */
-
-/* Zero-cost by default (desktop, and reduced-motion): the pin
-   contributes no layout, so the stage wrapper's box is just its real
-   incoming section's box — Motion.tsx's ScrollTrigger geometry and
-   `previousElementSibling` targeting are unaffected by this wrapper's
-   presence. */
-.classic-site .classic-mobile-transition-pin {
-  display: none;
-}
-
-@media (max-width: 768px) and (prefers-reduced-motion: no-preference),
-  (pointer: coarse) and (prefers-reduced-motion: no-preference) {
-  .classic-site .classic-mobile-transition-stage {
-    position: relative;
-  }
-
-  .classic-site .classic-mobile-transition-pin {
-    display: block;
-    position: sticky;
-    top: 0;
-    height: 100svh;
-    overflow: hidden;
-    z-index: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  /* The real incoming section: no special positioning needed beyond
-     painting above the pin (already true — later sibling, and z-[3]/
-     z-[4] on #services-panel/#faq already exceed the pin's z-index 1). */
 }

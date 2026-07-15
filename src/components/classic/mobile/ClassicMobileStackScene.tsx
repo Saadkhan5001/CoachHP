@@ -11,7 +11,7 @@ type Props = {
 };
 
 /**
- * Stack scene for /classic-mobile-v2 — the reference template's own
+ * Stack scene for /classic-mobile — the reference template's own
  * mechanism, confirmed frame-by-frame from the physical-phone recording:
  * the REAL outgoing section is `position: sticky` with a negative `top`
  * of exactly -(sectionHeight - viewportHeight). It therefore scrolls
@@ -58,11 +58,11 @@ export function ClassicMobileStackScene({ held, riser, id }: Props) {
   }, []);
 
   return (
-    <div className="v2-stack" id={id}>
-      <div className="v2-stack-held" ref={heldRef}>
+    <div className="cm-stack" id={id}>
+      <div className="cm-stack-held" ref={heldRef}>
         {held}
       </div>
-      <div className="v2-stack-riser">{riser}</div>
+      <div className="cm-stack-riser">{riser}</div>
     </div>
   );
 }

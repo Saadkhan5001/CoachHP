@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/classic-data";
 
 /**
- * Fixed mobile header for /classic-mobile-v2. Matches the reference
+ * Fixed mobile header for /classic-mobile. Matches the reference
  * recording: a constant-size glass pill that never resizes or moves during
  * scroll (no scroll listeners at all). Menu is an accessible dropdown:
  * closes on link tap, Escape, or backdrop tap; focus returns to the toggle.
@@ -30,8 +30,8 @@ export function ClassicMobileHeader() {
   }, [open]);
 
   return (
-    <header className="v2-header">
-      <div className="v2-header-bar">
+    <header className="cm-header">
+      <div className="cm-header-bar">
         <a href="#top" aria-label="Coach P — back to top" className="flex items-center" onClick={() => setOpen(false)}>
           <Image
             src="/images/CoachP-logo.png"
@@ -47,7 +47,7 @@ export function ClassicMobileHeader() {
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          aria-controls="v2-menu"
+          aria-controls="cm-menu"
           onClick={() => setOpen((v) => !v)}
           className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white"
         >
@@ -64,7 +64,7 @@ export function ClassicMobileHeader() {
             aria-hidden="true"
             onClick={() => setOpen(false)}
           />
-          <nav id="v2-menu" ref={panelRef} className="v2-menu-panel" aria-label="Main navigation">
+          <nav id="cm-menu" ref={panelRef} className="cm-menu-panel" aria-label="Main navigation">
             <ul className="flex flex-col">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>

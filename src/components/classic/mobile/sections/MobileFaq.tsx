@@ -10,7 +10,7 @@ import { FAQS } from "@/lib/classic-data";
  * Mobile FAQ, per the reference recording: white panel, heading, full-width
  * accordion rows with the first item open by default. This section is the
  * "riser" of the Pricing→FAQ stack scene, so its rounded top edge comes
- * from the page-level wrapper styling (v2-panel-top).
+ * from the page-level wrapper styling (cm-panel-top).
  */
 export function MobileFaq() {
   const [open, setOpen] = useState<number | null>(0);
@@ -19,7 +19,7 @@ export function MobileFaq() {
     <section
       id="faq"
       data-nav-theme="light"
-      className="v2-panel-top relative bg-[#f9f9f9] pb-16 text-[#0f0f0f]"
+      className="cm-panel-top relative bg-[#f9f9f9] pb-16 text-[#0f0f0f]"
       style={{ paddingTop: "64px" }}
     >
       <ClassicMobileSectionHeading
@@ -49,8 +49,8 @@ export function MobileFaq() {
                     }`}
                   />
                 </button>
-                <div className={`v2-acc-body ${isOpen ? "v2-open" : ""}`}>
-                  <div className="v2-acc-inner">
+                <div className={`cm-acc-body ${isOpen ? "cm-open" : ""}`}>
+                  <div className="cm-acc-inner">
                     <p className={`px-5 pb-5 text-[0.94rem] leading-relaxed text-black/55 ${isOpen ? "" : "invisible"}`}>
                       {item.a}
                     </p>

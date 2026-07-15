@@ -1,5 +1,5 @@
 ﻿import { PillLabel } from "./PillLabel";
-import { Reveal } from "../Reveal";
+import { Reveal } from "@/components/Reveal";
 
 type Props = {
   label: string;

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { SectionHeading } from "../SectionHeading";
-import { Reveal } from "../../Reveal";
+import { Reveal } from "@/components/Reveal";
 import { FAQS } from "@/lib/classic-data";
 
 export function Faq() {
@@ -13,6 +13,7 @@ export function Faq() {
     <section
       id="faq"
       data-nav-theme="light"
+      data-rise
       className="panel-reveal rounded-panel-top relative z-[4] bg-light-bg pb-20 pt-14 text-dark-bg sm:pb-28 sm:pt-20"
     >
       <SectionHeading label="FAQ" theme="light" className="px-5 sm:px-6" subtitle="Find answers to the most common questions about training with me and how my programs work.">

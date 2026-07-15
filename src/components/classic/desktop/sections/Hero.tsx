@@ -1,7 +1,7 @@
 import { PillLabel } from "../PillLabel";
 import { PrimaryButton } from "../PrimaryButton";
 import { StatCard } from "../StatCard";
-import { Reveal } from "../../Reveal";
+import { Reveal } from "@/components/Reveal";
 import { HERO_STATS } from "@/lib/classic-data";
 
 export function Hero() {

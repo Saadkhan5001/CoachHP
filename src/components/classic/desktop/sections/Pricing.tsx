@@ -1,6 +1,6 @@
 import { Globe, Users, Check, Zap } from "lucide-react";
 import { SectionHeading } from "../SectionHeading";
-import { Reveal } from "../../Reveal";
+import { Reveal } from "@/components/Reveal";
 import { PRICING } from "@/lib/classic-data";
 
 const PLAN_ICON = { globe: Globe, users: Users };
@@ -120,10 +120,6 @@ export function Pricing() {
         </div>
       </div>
 
-      {/* Marks where Pricing's real content ends — the mobile transition stage
-          (see ClassicMobileTransitionStage, wired in page.tsx) begins after
-          this section closes, never before. */}
-      <div className="classic-mobile-section-end" data-mobile-stack-boundary aria-hidden="true" />
     </section>
   );
 }

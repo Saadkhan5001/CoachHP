@@ -1,4 +1,4 @@
-import { CountUp } from "../CountUp";
+import { CountUp } from "@/components/CountUp";
 
 type Props = {
   value: number;

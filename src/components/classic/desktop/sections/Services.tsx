@@ -1,6 +1,6 @@
 import { Bone } from "lucide-react";
 import { SectionHeading } from "../SectionHeading";
-import { Reveal } from "../../Reveal";
+import { Reveal } from "@/components/Reveal";
 
 function AvocadoIcon({ className = "" }: { className?: string }) {
   return (

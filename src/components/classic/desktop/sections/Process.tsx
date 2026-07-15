@@ -1,7 +1,7 @@
 import { SectionHeading } from "../SectionHeading";
 import { PrimaryButton } from "../PrimaryButton";
-import { Reveal } from "../../Reveal";
-import { CountUp } from "../../CountUp";
+import { Reveal } from "@/components/Reveal";
+import { CountUp } from "@/components/CountUp";
 import { PROCESS_STEPS } from "@/lib/classic-data";
 
 function StepCard({

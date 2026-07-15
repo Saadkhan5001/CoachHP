@@ -42,14 +42,14 @@ export function MobileReviews() {
         label="Reviews"
         subtitle="This level of progress is driven by custom training, structured programming, and accountability every step of the way."
       >
-        Hear From Clients Who <span className="v2-accent-text">Took the First Step</span>
+        Hear From Clients Who <span className="cm-accent-text">Took the First Step</span>
       </ClassicMobileSectionHeading>
 
       <ClassicMobileReveal className="mt-9">
-        <div className="v2-embla" ref={emblaRef}>
-          <div className="v2-embla-track">
+        <div className="cm-embla" ref={emblaRef}>
+          <div className="cm-embla-track">
             {REVIEWS.map((review, i) => (
-              <div key={review.name} className="v2-embla-slide pr-3" aria-hidden={selected !== i}>
+              <div key={review.name} className="cm-embla-slide pr-3" aria-hidden={selected !== i}>
                 <article className="flex h-full min-h-[300px] flex-col rounded-3xl bg-[#141414] p-6">
                   <Quote className="h-7 w-7 rotate-180 fill-[#c01d18] text-[#c01d18]" strokeWidth={0} />
                   <p className="mt-4 text-[0.98rem] leading-[1.55] text-white/80">{review.quote}</p>

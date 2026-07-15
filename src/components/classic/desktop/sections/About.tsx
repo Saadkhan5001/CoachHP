@@ -1,7 +1,7 @@
 import { Award, FileBadge2, ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "../SectionHeading";
 import { PrimaryButton } from "../PrimaryButton";
-import { Reveal } from "../../Reveal";
+import { Reveal } from "@/components/Reveal";
 import { SocialIcons } from "../Socials";
 import { ABOUT_CREDENTIALS } from "@/lib/classic-data";
 
@@ -113,10 +113,6 @@ export function About() {
         </Reveal>
       </div>
 
-      {/* Marks where About's real content ends — the mobile transition stage
-          (see ClassicMobileTransitionStage, wired in page.tsx) begins after
-          this section closes, never before. */}
-      <div className="classic-mobile-section-end" data-mobile-stack-boundary aria-hidden="true" />
     </section>
   );
 }

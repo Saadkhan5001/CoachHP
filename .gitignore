@@ -6,3 +6,10 @@
 next-env.d.ts
 *.tsbuildinfo
 .DS_Store
+
+# Generated QA output (screenshots, videos, contact sheets)
+/_qa
+/_mobile_qa
+/_transition_qa
+/_mobile_v2_ref
+/_eqcheck

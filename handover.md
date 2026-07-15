@@ -363,43 +363,15 @@ After the Coach P Factory rebrand shipped with template-derived placeholder crop
 
 ---
 
-## 18. The `/classic` route — legacy-styled second landing page
+## 18. The `/classic` route — template-faithful second landing page (responsive)
 
-`/classic` is a **second, fully independent landing page** that recreates the *original* pre-rebrand Curtis template as faithfully as possible — same layout, section order, spacing, typography, cards, carousels, panel-transition motion, pricing/FAQ — with the accent swapped from neon green (`#8cff00`) to Coach P red (`#C01D18`) and minimal Coach P branding (logo text only; no "Curtis Johnson" / "Framer Gym" / "Amsterdam"). It exists alongside — and is completely decoupled from — the customized `/` and `/academy` routes described in §1–§16.
+`/classic` is a second, fully independent landing page recreating the original pre-rebrand template composition with the accent swapped to Coach P red (`#C01D18`) and minimal Coach P branding. It is completely decoupled from the customized `/` and `/academy` routes described in §1–§16.
 
-**Why a separate route instead of a toggle/theme on `/`:** the customized homepage's industrial redesign (stamped graphics, oversized type, Academy dashboard concept) and the original template's aesthetic are different design languages entirely; keeping them as two routes avoids parameterizing shared components into an unreadable mess and guarantees zero risk of the customized homepage regressing.
+Since the original single-tree implementation, the route has been rebuilt as **two separate, individually approved experiences with a responsive shell** that mounts exactly one of them per device:
 
-### Isolation architecture
-- **Route:** `src/app/classic/page.tsx` — `metadata: { title: "Coach P — Personal Training", robots: { index: false, follow: false } }` (kept out of search engines; it's a concept/demo page, not the production homepage).
-- **Scoped styling:** `src/app/classic/classic.css`, entirely under a `.classic-site` wrapper class. It locally overrides the shared `--accent` CSS variable to `#c01d18` (so shared primitives like `.text-accent` render red only inside `/classic`) and restores the *original* pre-industrial typography/palette helper classes (`.h-hero`, `.h-section`, `.bg-dark-bg`, `.rounded-panel-top`, etc.) scoped to that wrapper, without touching the real `globals.css`.
-- **Component tree:** `src/components/classic/` mirrors the original Curtis component tree 1:1 (`Header`, `Logo`, `PillLabel`, `PrimaryButton`, `StatCard`, `SectionHeading`, `Socials`, `sections/*`). These are **separate files from `src/components/*`** used by `/` — do not import across the two trees.
-- **Content:** `src/lib/classic-data.ts` — a full port of the original `data.ts` shape, with "Curtis" → "Coach P" and fictional specifics (e.g. "Framer Gym in Amsterdam") replaced with neutral phrasing. **The stats (99%/250+/450+/95%), pricing ($149/$249), and testimonials are carried over as demonstrative template content, not verified Coach P facts or figures** — flagged in the file's own header comment; do not present them to a client as real numbers without confirmation.
-- **Assets:** `public/images/classic/` — the 16 original Curtis template images, recovered byte-for-byte from git history (`git show 5b21b73:public/images/curtis/<file> > public/images/classic/<file>`, since that directory had already been deleted from the working tree by the rebrand) — **not** shared with `public/images/coach-p/`.
-- **Reused unmodified:** `Motion.tsx`, `Reveal.tsx`, `CountUp.tsx` — imported as-is from the shared `src/components/`. These are brand-agnostic and were not forked.
+- **Desktop** (fine pointer, >768px): `src/components/classic/desktop/` — Lenis + GSAP counter-translate panel transitions via the shared `Motion.tsx`.
+- **Mobile** (coarse pointer or ≤768px): `src/components/classic/mobile/` — phone-validated against a real recording of the reference template; native scrolling, IntersectionObserver reveals, and browser-native CSS-sticky section stacking (About→Services, Pricing→FAQ). **No GSAP, no Lenis, no scroll-linked JS on mobile** (see §16 for why that class of technique vibrates on touch devices).
 
-### Accent color & the one deliberate template deviation
-`#C01D18` is applied via the `.classic-site`-scoped `--accent` override plus hardcoded hex in a few places (`Logo.tsx` SVG stroke, badges, dots, quote icons). **Because black text on `#C01D18` fails contrast**, `PrimaryButton.tsx` was changed from the original's black-text/black-circle pattern to **white text on the red pill + a near-black (`#0f0f0f`) circular arrow area** — this is an intentional, accessibility-driven departure from an otherwise faithful recreation.
+Shared between both: `src/lib/classic-data.ts` (all copy — stats/pricing/testimonials remain demonstrative template content, not verified Coach P figures), `public/images/classic/*`, and the accessibility-driven white-text-on-red button pattern (black text on `#C01D18` fails contrast).
 
-### Header & logo (most recent changes)
-`src/components/classic/Header.tsx` reuses the original's `requestAnimationFrame`-throttled scroll handler (width/height lerp over `SHRINK_DISTANCE`, section-crossing theme detection) but now also drives the logo directly:
-- `Logo.tsx` is a `forwardRef<HTMLImageElement>` component so `Header` can hold a `logoRef` and set the underlying `<img>`'s height imperatively inside the *same* scroll callback the nav pill already uses — no new scroll listeners, so no new vibration risk (still guarded by the existing fine-pointer/desktop-only `isMobile` check).
-- The logo is deliberately sized **larger than the nav pill** (`h-16`/`sm:h-20`, i.e. 64/80px) so it overflows the 56px pill vertically, centered — a "logo breaks out of the nav" treatment. The pill itself was kept at its original size (`h-14`, shrinking 56→52px on scroll) per explicit instruction not to grow the menu.
-- On scroll it shrinks in sync with the pill, from `LOGO_BASE_MOBILE`/`LOGO_BASE_DESKTOP` (64/80px) down by up to `LOGO_SHRINK` (18px) — constants live at the top of `Header.tsx`.
-
-### Content/asset touch-ups since the initial build
-- **Services section** — the original template's flattened-screenshot crops for `svc-strength.jpg`, `svc-conditioning.jpg`, and `svc-nutrition.jpg` were replaced with freely-licensed Unsplash photography (Unsplash License — free for commercial use, no attribution required), chosen for stronger visual impact. Filenames were kept identical, so no component code changes were needed — just overwrite the file to swap.
-- **About-section portrait** — swapped to a client-supplied file at `public/images/classic/Meet-coach.jpg`.
-- **Client Stories / Transformations carousel** (`src/components/classic/sections/Transformations.tsx`) — the original template's `xl`-breakpoint "peek" behavior (adjacent slides bleeding into view with a dark overlay, arrows positioned via a `calc()` formula relative to the active card) was simplified: the carousel now always renders inside a `max-w-[994px] overflow-hidden` wrapper with exactly one Prev/Next button pair pinned to that wrapper's edges. This was a deliberate deviation from the original template's carousel styling, scoped to `/classic` only, made because the peek effect was surfacing confusing duplicate-looking arrows and stray adjacent-slide text at wide viewports.
-
-### Verification performed
-- `npx tsc --noEmit` clean.
-- `npm run build` clean — all four routes prerender (`/`, `/academy`, `/classic`, `/_not-found`).
-- `git status --short` showed **zero modified tracked files** outside `/classic`'s own new paths (`public/images/classic/`, `src/app/classic/`, `src/components/classic/`, `src/lib/classic-data.ts`) — `/` and `/academy` are provably untouched by this work.
-- Desktop panel-transition motion and mobile vibration-free scrolling both re-verified on `/classic` using the same methodology as §7/§16.
-
-### How to work on `/classic`
-- **Content:** `src/lib/classic-data.ts` only — never `src/lib/data.ts`.
-- **Accent/typography:** the `.classic-site` block in `src/app/classic/classic.css` — never `globals.css`.
-- **Components:** `src/components/classic/` only — never `src/components/*` (that's the industrial `/` tree).
-- **Images:** `public/images/classic/` only — never `public/images/coach-p/`.
-- If a future request asks for a third "flavor" of the site, follow this same pattern (own component tree, own data file, own scoped CSS, own asset folder) rather than adding more conditionals into the shared components.
+**Full architecture, the responsive-switch strategy, the mobile sticky technique, sticky-ancestor restrictions, QA scripts and local-testing instructions live in [CLASSIC_RESPONSIVE_HANDOVER.md](CLASSIC_RESPONSIVE_HANDOVER.md)** — read that before changing anything under `src/app/classic/` or `src/components/classic/`.

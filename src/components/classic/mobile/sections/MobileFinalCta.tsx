@@ -10,7 +10,7 @@ import { FOOTER_LINKS, CLASSIC_BRAND } from "@/lib/classic-data";
  */
 export function MobileFinalCta() {
   return (
-    <section id="contact" data-nav-theme="dark" className="v2-panel-top relative flex flex-col overflow-hidden bg-[#0f0f0f]">
+    <section id="contact" data-nav-theme="dark" className="cm-panel-top relative flex flex-col overflow-hidden bg-[#0f0f0f]">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url(/images/classic/cta-bg.jpg)" }}
@@ -21,8 +21,8 @@ export function MobileFinalCta() {
 
       <div className="relative flex flex-col items-center px-5 pt-24 text-center" style={{ minHeight: "62svh" }}>
         <ClassicMobileReveal>
-          <h2 className="v2-h-section text-white">
-            Ready To Achieve <span className="v2-accent-text">Your Goals?</span>
+          <h2 className="cm-h-section text-white">
+            Ready To Achieve <span className="cm-accent-text">Your Goals?</span>
           </h2>
         </ClassicMobileReveal>
         <ClassicMobileReveal delay={70}>
@@ -39,7 +39,7 @@ export function MobileFinalCta() {
       </div>
 
       {/* Footer */}
-      <footer className="relative px-5 pb-6 pt-14" style={{ paddingBottom: "calc(24px + var(--v2-safe-bottom))" }}>
+      <footer className="relative px-5 pb-6 pt-14" style={{ paddingBottom: "calc(24px + var(--cm-safe-bottom))" }}>
         <div className="flex justify-center">
           <a
             href={CLASSIC_BRAND.instagram}
