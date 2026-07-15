@@ -1,0 +1,202 @@
+/* ============================================================
+   /classic-mobile-v2 — mobile laboratory route.
+   Every rule is scoped under `.classic-mobile-v2` so nothing here
+   can affect `/`, `/academy`, or `/classic`.
+
+   Built from the physical-phone recording of the reference template
+   (see CLASSIC_MOBILE_V2_REFERENCE.md). No Lenis, no GSAP, no
+   scroll-linked JavaScript anywhere on this route.
+   ============================================================ */
+
+.classic-mobile-v2 {
+  /* Brand */
+  --v2-accent: #c01d18;
+  --v2-accent-hover: #a91814;
+  --v2-dark: #0f0f0f;
+  --v2-card: #141414;
+  --v2-card-2: #1c1c1c;
+  --v2-light: #f9f9f9;
+
+  /* Stable mobile design tokens */
+  --v2-header-h: 56px;
+  --v2-pad-x: 20px;
+  --v2-section-pt: 72px;
+  --v2-section-pb: 72px;
+  --v2-gap: 14px;
+  --v2-panel-radius: 30px;
+  --v2-card-radius: 24px;
+  --v2-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --v2-safe-top: env(safe-area-inset-top, 0px);
+
+  background: var(--v2-dark);
+  color: #f2f2f2;
+
+  /* Native touch scrolling only: vertical pan + pinch zoom stay with the
+     browser compositor. Carousels claim horizontal intent via Embla. */
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-y: auto;
+}
+
+.classic-mobile-v2 ::selection {
+  background: var(--v2-accent);
+  color: #fff;
+}
+
+/* Anchor targets clear the fixed header */
+.classic-mobile-v2 section[id],
+.classic-mobile-v2 div[id] {
+  scroll-margin-top: calc(var(--v2-header-h) + var(--v2-safe-top) + 16px);
+}
+
+/* ---- Typography ---- */
+.classic-mobile-v2 .v2-h-hero {
+  font-size: clamp(2.5rem, 11vw, 3.4rem);
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+.classic-mobile-v2 .v2-h-section {
+  font-size: clamp(1.9rem, 8vw, 2.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+}
+.classic-mobile-v2 .v2-accent-text { color: var(--v2-accent); }
+
+/* ============================================================
+   Stack scenes (About → Services, Pricing → FAQ)
+
+   The mechanism the reference itself uses, confirmed frame-by-frame
+   from the phone recording: the REAL outgoing section is sticky with
+   a negative top of exactly -(sectionHeight - viewportHeight), so it
+   scrolls completely normally, then freezes at its LAST viewport
+   while the incoming panel (next sibling, higher z-index) rises a
+   full viewport over it.
+
+   --held-h is the outgoing section's measured height, written by a
+   ResizeObserver ONLY when layout changes (mount / image load /
+   orientation) — never on scroll. The browser resolves 100svh
+   natively, so address-bar movement can't cause recalculation.
+   Until JS measures, the fallback (300svh) keeps `top` deeply
+   negative → sticky never engages → plain flow. No JS, no hold,
+   content always readable.
+
+   The scene wrapper and both children must never gain overflow,
+   transform, filter, or contain — any of those silently kills the
+   sticky behavior (proven the hard way in the previous /classic
+   implementation).
+   ============================================================ */
+.classic-mobile-v2 .v2-stack {
+  position: relative;
+}
+.classic-mobile-v2 .v2-stack-held {
+  position: sticky;
+  top: min(0px, calc(100svh - var(--held-h, 300svh)));
+  z-index: 1;
+}
+.classic-mobile-v2 .v2-stack-riser {
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .classic-mobile-v2 .v2-stack-held {
+    position: relative;
+    top: auto;
+  }
+}
+
+/* Rounded rising-panel edge */
+.classic-mobile-v2 .v2-panel-top {
+  border-top-left-radius: var(--v2-panel-radius);
+  border-top-right-radius: var(--v2-panel-radius);
+  box-shadow: 0 -18px 44px -24px rgba(0, 0, 0, 0.55);
+}
+
+/* ============================================================
+   Content reveals — one-shot, IntersectionObserver-driven.
+   The hidden state only applies when scripting is available, so
+   no-JS visitors (and older browsers, which skip the media query
+   entirely) always see content immediately.
+   Reveals are applied ONLY to interior content, never to .v2-stack,
+   .v2-stack-held or .v2-stack-riser (a transformed ancestor would
+   break sticky positioning).
+   ============================================================ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .classic-mobile-v2 .v2-reveal {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .classic-mobile-v2 .v2-reveal.v2-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.6s cubic-bezier(0.25, 0.6, 0.3, 1),
+      transform 0.6s cubic-bezier(0.25, 0.6, 0.3, 1);
+  }
+}
+
+/* ---- Header ---- */
+.classic-mobile-v2 .v2-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: calc(12px + var(--v2-safe-top)) 16px 0;
+  pointer-events: none;
+}
+.classic-mobile-v2 .v2-header-bar {
+  pointer-events: auto;
+  height: var(--v2-header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 0 18px;
+  border-radius: 999px;
+  background: rgba(38, 44, 42, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.classic-mobile-v2 .v2-menu-panel {
+  pointer-events: auto;
+  margin-top: 8px;
+  border-radius: 24px;
+  background: rgba(16, 18, 20, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 12px;
+}
+
+/* ---- Carousels ---- */
+.classic-mobile-v2 .v2-embla {
+  overflow: hidden;
+  border-radius: var(--v2-card-radius);
+}
+.classic-mobile-v2 .v2-embla-track {
+  display: flex;
+  align-items: stretch;
+}
+.classic-mobile-v2 .v2-embla-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* ---- FAQ accordion ---- */
+.classic-mobile-v2 .v2-acc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.25, 0.6, 0.3, 1);
+}
+.classic-mobile-v2 .v2-acc-body.v2-open {
+  grid-template-rows: 1fr;
+}
+.classic-mobile-v2 .v2-acc-inner {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .classic-mobile-v2 .v2-acc-body { transition: none; }
+  .classic-mobile-v2 .v2-reveal { opacity: 1; transform: none; }
+}

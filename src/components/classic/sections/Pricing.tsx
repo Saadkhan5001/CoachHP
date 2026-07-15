@@ -20,7 +20,7 @@ export function Pricing() {
       <div className="absolute inset-0 bg-[#0b0d0e]/75" aria-hidden="true" />
 
       <div className="relative">
-        <SectionHeading label="Pricing" subtitle="Whether you prefer online coaching or in-person sessions, each option offers personalized support to help you reach your goals.">
+        <SectionHeading label="Pricing" className="px-5 sm:px-6" subtitle="Whether you prefer online coaching or in-person sessions, each option offers personalized support to help you reach your goals.">
           Choose <span className="text-[#c01d18]">Your Plan</span>
         </SectionHeading>
 
@@ -119,6 +119,11 @@ export function Pricing() {
           })}
         </div>
       </div>
+
+      {/* Marks where Pricing's real content ends — the mobile transition stage
+          (see ClassicMobileTransitionStage, wired in page.tsx) begins after
+          this section closes, never before. */}
+      <div className="classic-mobile-section-end" data-mobile-stack-boundary aria-hidden="true" />
     </section>
   );
 }

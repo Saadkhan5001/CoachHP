@@ -42,7 +42,7 @@ export function Reviews() {
       aria-roledescription="carousel"
       aria-label="Client reviews"
     >
-      <SectionHeading label="Reviews" subtitle="This level of progress is driven by custom training, structured programming, and accountability every step of the way.">
+      <SectionHeading label="Reviews" className="px-5 sm:px-6" subtitle="This level of progress is driven by custom training, structured programming, and accountability every step of the way.">
         Hear From Clients Who <span className="text-[#c01d18]">Took the First Step</span>
       </SectionHeading>
 

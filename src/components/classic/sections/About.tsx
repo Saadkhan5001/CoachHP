@@ -18,7 +18,7 @@ export function About() {
       <SectionHeading
         label="About Me"
         theme="light"
-        className="classic-about-heading"
+        className="classic-about-heading px-5 sm:px-6"
         headingStyle={{ fontSize: "clamp(2.1rem, 4.6vw, 3rem)", lineHeight: 1 }}
         subtitleStyle={{ maxWidth: "580px", lineHeight: 1.35 }}
         subtitle="This level of progress is driven by custom training, structured programming, and accountability every step of the way."
@@ -112,6 +112,11 @@ export function About() {
           </div>
         </Reveal>
       </div>
+
+      {/* Marks where About's real content ends — the mobile transition stage
+          (see ClassicMobileTransitionStage, wired in page.tsx) begins after
+          this section closes, never before. */}
+      <div className="classic-mobile-section-end" data-mobile-stack-boundary aria-hidden="true" />
     </section>
   );
 }

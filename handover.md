@@ -9,6 +9,10 @@
 > - Section anchor IDs changed (`#coaching`, `#method`, `#results`, `#standards`, `#options`, `#academy-preview`). Nav/footer updated accordingly.
 >
 > Everything below describes the original Curtis build and remains the reference for how the underlying system works.
+>
+> **Two further passes since the rebrand:**
+> - A **real-photography / Instagram research pass** replaced one placeholder with a real, rights-cleared Coach P photo and documented sourcing for the rest — see **§17**, `VISUAL_ASSET_AUDIT.md`, `INSTAGRAM_ASSET_REQUEST.md`, and `public/images/coach-p/SOURCES.md`.
+> - A second, fully isolated landing page was added at **`/classic`** — a near-exact recreation of the *original* (pre-rebrand) Curtis template with only the accent swapped to Coach P red (`#C01D18`) and minimal rebranding. It does not touch `/` or `/academy` in any way. See **§18**.
 
 ---
 
@@ -108,6 +112,8 @@ D:\Apolloe\CoachHP\
          ├─ Faq.tsx             #faq      (light rising panel; accordion)
          └─ FinalCta.tsx        #contact  (dark rising panel; CTA + footer overlay)
 ```
+
+> This tree (and everything in §1–§16) describes the **original Curtis build**, which today lives at the customized **`/`** and **`/academy`** routes after the rebrand (content/tokens changed per the banner above, structure unchanged). A second, parallel component/data/asset tree for the **`/classic`** route was added later and is intentionally kept separate — see **§18** for its own file structure. Do not mix imports between the two trees.
 
 ---
 
@@ -333,5 +339,67 @@ Primary target is desktop (~1440–1920). Verified with 0 horizontal overflow at
 - **`?nomotion`** disables all scroll motion — handy for debugging/screenshots, not a user-facing feature.
 - **All CTAs go to `#contact`** — there is no real contact form/booking yet; that's the obvious next feature.
 - **`scripts/shots.mjs`** and Playwright are dev-only; safe to keep or remove. `_shots/` output is gitignored.
-- The site is a single route (`/`). Adding routes means introducing real navigation and revisiting the fixed header logic.
+- ~~The site is a single route (`/`)~~ — **outdated as of the `/academy` and `/classic` additions.** The project now has three routes: `/` (customized homepage), `/academy` (concept preview, `noindex`), `/classic` (legacy-styled second landing page, `noindex` — see §18). Each is self-contained; adding another route in the same style as `/classic` means introducing its own component/data/asset tree rather than parameterizing the shared one.
 - **No scroll-linked main-thread transform on mobile touch scroll — of any kind.** Two independent approaches were tried and both visibly vibrated on real touch devices: a genuine GSAP `pin`, and the desktop's non-pinning `scrub:true` counter-translate. The root cause is architectural, not tunable: native touch scroll runs on the compositor/GPU thread, while GSAP's scrub callback runs on the main thread; the 1-2 frame desync between them makes any compensating `transform` perpetually chase and snap back. **Mobile now applies zero scroll-linked JS to the panel-reveal sections** (see §7) — the rounded-corner "seam" from normal document flow is the accepted tradeoff. Before reintroducing *any* scroll-driven transform/pin on mobile (even a "simple" one), test on real touch hardware or Playwright touch emulation (`devices['iPhone 13']` + `page.mouse.wheel` bursts) and check the element's computed `transform` stays perfectly monotonic — don't trust desktop-mouse testing, it will not reproduce this class of bug.
+
+---
+
+## 17. Real-photography / Instagram research pass (`public/images/coach-p/`)
+
+After the Coach P Factory rebrand shipped with template-derived placeholder crops (see §0 banner), a follow-up pass researched Coach P's real Instagram (`@coachp_factory`) to replace placeholders with real, rights-conscious photography where possible.
+
+**Rules followed** (still apply if this pass is ever resumed):
+- No login/auth bypass, no scraping beyond a page's own naturally-triggered network responses, no spoofed headers to pull more than normal browsing exposes.
+- No fabricated/AI-generated images used as if they were real photography.
+- No client photos (before/afters, testimonials) used without explicit consent — those remain clearly-labeled placeholders.
+- Every acquired asset's provenance is documented, not just dropped in silently.
+
+**Deliverables (repo root / asset folder):**
+- `VISUAL_ASSET_AUDIT.md` — the research process and findings across the accessible Instagram posts.
+- `INSTAGRAM_ASSET_REQUEST.md` — exact specs (which post, which crop, what it replaces) for real assets that could **not** be acquired in-pass, for Coach P to supply directly.
+- `public/images/coach-p/SOURCES.md` — the authoritative, per-file provenance table: which single asset is real (`coach-p-profile.webp` — his own IG profile photo, 320px source, used only for small badge/avatar placements) vs. which remain template-derived placeholders (everything else in that folder), with a replacement recommendation for each.
+
+**Net effect:** one real asset was integrated; the rest of `public/images/coach-p/` is still placeholder photography pending Coach P supplying his own files. Check `SOURCES.md` before assuming any image in that folder is a real photo of him.
+
+---
+
+## 18. The `/classic` route — legacy-styled second landing page
+
+`/classic` is a **second, fully independent landing page** that recreates the *original* pre-rebrand Curtis template as faithfully as possible — same layout, section order, spacing, typography, cards, carousels, panel-transition motion, pricing/FAQ — with the accent swapped from neon green (`#8cff00`) to Coach P red (`#C01D18`) and minimal Coach P branding (logo text only; no "Curtis Johnson" / "Framer Gym" / "Amsterdam"). It exists alongside — and is completely decoupled from — the customized `/` and `/academy` routes described in §1–§16.
+
+**Why a separate route instead of a toggle/theme on `/`:** the customized homepage's industrial redesign (stamped graphics, oversized type, Academy dashboard concept) and the original template's aesthetic are different design languages entirely; keeping them as two routes avoids parameterizing shared components into an unreadable mess and guarantees zero risk of the customized homepage regressing.
+
+### Isolation architecture
+- **Route:** `src/app/classic/page.tsx` — `metadata: { title: "Coach P — Personal Training", robots: { index: false, follow: false } }` (kept out of search engines; it's a concept/demo page, not the production homepage).
+- **Scoped styling:** `src/app/classic/classic.css`, entirely under a `.classic-site` wrapper class. It locally overrides the shared `--accent` CSS variable to `#c01d18` (so shared primitives like `.text-accent` render red only inside `/classic`) and restores the *original* pre-industrial typography/palette helper classes (`.h-hero`, `.h-section`, `.bg-dark-bg`, `.rounded-panel-top`, etc.) scoped to that wrapper, without touching the real `globals.css`.
+- **Component tree:** `src/components/classic/` mirrors the original Curtis component tree 1:1 (`Header`, `Logo`, `PillLabel`, `PrimaryButton`, `StatCard`, `SectionHeading`, `Socials`, `sections/*`). These are **separate files from `src/components/*`** used by `/` — do not import across the two trees.
+- **Content:** `src/lib/classic-data.ts` — a full port of the original `data.ts` shape, with "Curtis" → "Coach P" and fictional specifics (e.g. "Framer Gym in Amsterdam") replaced with neutral phrasing. **The stats (99%/250+/450+/95%), pricing ($149/$249), and testimonials are carried over as demonstrative template content, not verified Coach P facts or figures** — flagged in the file's own header comment; do not present them to a client as real numbers without confirmation.
+- **Assets:** `public/images/classic/` — the 16 original Curtis template images, recovered byte-for-byte from git history (`git show 5b21b73:public/images/curtis/<file> > public/images/classic/<file>`, since that directory had already been deleted from the working tree by the rebrand) — **not** shared with `public/images/coach-p/`.
+- **Reused unmodified:** `Motion.tsx`, `Reveal.tsx`, `CountUp.tsx` — imported as-is from the shared `src/components/`. These are brand-agnostic and were not forked.
+
+### Accent color & the one deliberate template deviation
+`#C01D18` is applied via the `.classic-site`-scoped `--accent` override plus hardcoded hex in a few places (`Logo.tsx` SVG stroke, badges, dots, quote icons). **Because black text on `#C01D18` fails contrast**, `PrimaryButton.tsx` was changed from the original's black-text/black-circle pattern to **white text on the red pill + a near-black (`#0f0f0f`) circular arrow area** — this is an intentional, accessibility-driven departure from an otherwise faithful recreation.
+
+### Header & logo (most recent changes)
+`src/components/classic/Header.tsx` reuses the original's `requestAnimationFrame`-throttled scroll handler (width/height lerp over `SHRINK_DISTANCE`, section-crossing theme detection) but now also drives the logo directly:
+- `Logo.tsx` is a `forwardRef<HTMLImageElement>` component so `Header` can hold a `logoRef` and set the underlying `<img>`'s height imperatively inside the *same* scroll callback the nav pill already uses — no new scroll listeners, so no new vibration risk (still guarded by the existing fine-pointer/desktop-only `isMobile` check).
+- The logo is deliberately sized **larger than the nav pill** (`h-16`/`sm:h-20`, i.e. 64/80px) so it overflows the 56px pill vertically, centered — a "logo breaks out of the nav" treatment. The pill itself was kept at its original size (`h-14`, shrinking 56→52px on scroll) per explicit instruction not to grow the menu.
+- On scroll it shrinks in sync with the pill, from `LOGO_BASE_MOBILE`/`LOGO_BASE_DESKTOP` (64/80px) down by up to `LOGO_SHRINK` (18px) — constants live at the top of `Header.tsx`.
+
+### Content/asset touch-ups since the initial build
+- **Services section** — the original template's flattened-screenshot crops for `svc-strength.jpg`, `svc-conditioning.jpg`, and `svc-nutrition.jpg` were replaced with freely-licensed Unsplash photography (Unsplash License — free for commercial use, no attribution required), chosen for stronger visual impact. Filenames were kept identical, so no component code changes were needed — just overwrite the file to swap.
+- **About-section portrait** — swapped to a client-supplied file at `public/images/classic/Meet-coach.jpg`.
+- **Client Stories / Transformations carousel** (`src/components/classic/sections/Transformations.tsx`) — the original template's `xl`-breakpoint "peek" behavior (adjacent slides bleeding into view with a dark overlay, arrows positioned via a `calc()` formula relative to the active card) was simplified: the carousel now always renders inside a `max-w-[994px] overflow-hidden` wrapper with exactly one Prev/Next button pair pinned to that wrapper's edges. This was a deliberate deviation from the original template's carousel styling, scoped to `/classic` only, made because the peek effect was surfacing confusing duplicate-looking arrows and stray adjacent-slide text at wide viewports.
+
+### Verification performed
+- `npx tsc --noEmit` clean.
+- `npm run build` clean — all four routes prerender (`/`, `/academy`, `/classic`, `/_not-found`).
+- `git status --short` showed **zero modified tracked files** outside `/classic`'s own new paths (`public/images/classic/`, `src/app/classic/`, `src/components/classic/`, `src/lib/classic-data.ts`) — `/` and `/academy` are provably untouched by this work.
+- Desktop panel-transition motion and mobile vibration-free scrolling both re-verified on `/classic` using the same methodology as §7/§16.
+
+### How to work on `/classic`
+- **Content:** `src/lib/classic-data.ts` only — never `src/lib/data.ts`.
+- **Accent/typography:** the `.classic-site` block in `src/app/classic/classic.css` — never `globals.css`.
+- **Components:** `src/components/classic/` only — never `src/components/*` (that's the industrial `/` tree).
+- **Images:** `public/images/classic/` only — never `public/images/coach-p/`.
+- If a future request asks for a third "flavor" of the site, follow this same pattern (own component tree, own data file, own scoped CSS, own asset folder) rather than adding more conditionals into the shared components.
